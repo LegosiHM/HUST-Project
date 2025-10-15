@@ -68,7 +68,9 @@ public class HurtBoxTest : MonoBehaviour
             {
                 Flash(); //flash
                 playerCamera.GetComponent<Animator>().Play(shakeAnimation); //shake
-                FindFirstObjectByType<HitStopManager>().Stop(stopDuration); //hitstop
+                FindFirstObjectByType<HitStopManager>().Stop(stopDuration/10); //hitstop
+
+                enemyStats.TakeDMG(enemyStats._currentHP * 0.1f); //10 percent of remaining HP
 
                 //enemyStats.TakeDMG(other.GetComponent<HitBoxTest>()._currentDMG);
 
