@@ -16,11 +16,24 @@ public class WalkRunState : BaseState
 
     public override IPlayerState TryTransition(PlayerContext ctx)
     {
-        if (ctx.CrouchHeld) return new CrouchState();
-        if (ctx.JumpPressed && (ctx.IsGrounded || ctx.IsCoyoteGrounded(0.2f)))
-            return new JumpState();
+        if (ctx.CrouchHeld)
+        {
+            SwitchState(ctx, new CrouchState());
+            return null;
+        }
 
-        if (ctx.Move.sqrMagnitude <= 0.01f) return new IdleState();
+        if (ctx.JumpPressed)
+        {
+            SwitchState(ctx, new JumpState());
+            return null;
+        }
+
+        if (ctx.Move.sqrMagnitude <= 0.01f)
+        {
+            SwitchState(ctx, new IdleState());
+            return null;
+        }
+
         return null;
     }
 }

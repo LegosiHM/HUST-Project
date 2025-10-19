@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerContext : MonoBehaviour
 {
+    [HideInInspector] public PlayerStateMachine fsm;
     [HideInInspector] public PlayerController motor;
     [HideInInspector] public Gravity gravity;
     [HideInInspector] public CharacterController cc;

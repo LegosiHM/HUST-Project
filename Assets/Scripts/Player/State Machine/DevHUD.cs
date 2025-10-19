@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DevHUD : MonoBehaviour
 {
@@ -7,7 +7,8 @@ public class DevHUD : MonoBehaviour
     public PlayerController motor;
     public Gravity gravity;
 
-    Rect r = new Rect(10, 10, 520, 20);
+    Rect baseRect = new Rect(10, 10, 800, 25);
+    float lineHeight = 20f;
 
     void Awake()
     {
@@ -21,11 +22,24 @@ public class DevHUD : MonoBehaviour
     {
         if (!fsm || !ctx || !motor || !gravity) return;
 
-        var row = new Rect(r);
-        GUI.Label(row, $"STATE: {fsm.CurrentStateName}"); row.y += 18;
-        GUI.Label(row, $"Move:{ctx.Move}  SprintHeld:{ctx.SprintHeld}  CrouchHeld:{ctx.CrouchHeld}  JumpPressed:{ctx.JumpPressed}"); row.y += 18;
-        GUI.Label(row, $"wantSprint:{motor.wantSprint} wantCrouch:{motor.wantCrouch} wantJumpPulse:{motor.wantJumpPulse}"); row.y += 18;
-        GUI.Label(row, $"IsGrounded:{ctx.IsGrounded} (probe:{ctx.IsGroundedProbing(0.12f)})  lastGroundedAt:{ctx.lastGroundedAt:F2}  now:{Time.time:F2}"); row.y += 18;
-        GUI.Label(row, $"VerticalVel:{gravity.VerticalVelocity:F2}"); row.y += 18;
+        GUI.skin.label.fontSize = 14;
+        GUI.color = Color.white;
+
+        var row = new Rect(baseRect);
+
+        GUI.Label(row, $"STATE: {fsm.GetFullStateName()}");
+        row.y += lineHeight * 1.3f;
+
+        GUI.Label(row, $"Move: {ctx.Move}   SprintHeld: {ctx.SprintHeld}   CrouchHeld: {ctx.CrouchHeld}   JumpPressed: {ctx.JumpPressed}");
+        row.y += lineHeight * 1.3f;
+
+        GUI.Label(row, $"wantSprint: {motor.wantSprint}   wantCrouch: {motor.wantCrouch}   wantJumpPulse: {motor.wantJumpPulse}");
+        row.y += lineHeight * 1.3f;
+
+        GUI.Label(row, $"IsGrounded: {ctx.IsGrounded}  (probe: {ctx.IsGroundedProbing(0.12f)})   lastGroundedAt: {ctx.lastGroundedAt:F2}   now: {Time.time:F2}");
+        row.y += lineHeight * 1.3f;
+
+        GUI.Label(row, $"VerticalVel: {gravity.VerticalVelocity:F2}");
+        row.y += lineHeight * 1.3f;
     }
 }

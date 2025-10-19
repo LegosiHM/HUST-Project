@@ -1,4 +1,4 @@
-using Unity.IO.LowLevel.Unsafe;
+﻿using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,7 +14,35 @@ public class PlayerStateMachine : MonoBehaviour
     private InputAction move, sprint, crouch, jump, interact;
 
     public string CurrentStateName => state?.GetType().Name ?? "NULL";
+
+    // For DevHUD Only
+    public string GetFullStateName()
+    {
+        if (state == null) return "NULL";
+
+        string name = state.GetType().Name;
+        var sub = (state as BaseState)?.SubState;
+        while (sub != null)
+        {
+            name += " → " + sub.GetType().Name;
+            sub = sub.SubState;
+        }
+        return name;
+    }
+    //
+
     public event System.Action<string, string> OnStateChanged;
+    public IPlayerState CurrentState
+    {
+        get => state;
+        set => state = value;
+    }
+    public void SetCurrentState(BaseState newState)
+    {
+        state = newState;
+    }
+
+
 
     void Awake()
     {
@@ -55,7 +83,7 @@ public class PlayerStateMachine : MonoBehaviour
 
         ctx.motor.moveInput = ctx.Move;
 
-        state.Tick(ctx, Time.deltaTime);
+        (state as BaseState)?.UpdateStates(ctx, Time.deltaTime);
 
         var next = state.TryTransition(ctx);
         if (next != null)
