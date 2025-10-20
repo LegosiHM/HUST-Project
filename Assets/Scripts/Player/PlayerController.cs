@@ -16,13 +16,13 @@ public class PlayerController : MonoBehaviour
     public Vector3 controllerCenterStand = new Vector3(0, 0.9f, 0);
     public Vector3 controllerCenterCrouch = new Vector3(0, 0.55f, 0);
 
-    [Header("Camera/Visuals (optional)")]
-    public Transform cameraTransform;
+    [Header("Camera Target (Cinemachine)")]
+    public Transform cameraTarget;
+    public float cameraLerpSpeed = 8f;
+
+    [Header("Camera Heights")]
     public float eyeHeightStand = 1.65f;
     public float eyeHeightCrouch = 1.0f;
-    public Vector3 camOffsetFromFeetXZ = Vector3.zero;
-    public Transform bodyRoot;                          
-    public float visualLerpSpeed = 12f;
 
     [Header("Jump")]
     public float jumpSpeed = 6.0f;
@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool wantSprint;
     [HideInInspector] public bool wantCrouch;
     [HideInInspector] public bool wantJumpPulse;
-
     [HideInInspector] public Vector2 moveInput;
 
     CharacterController cc;
@@ -40,31 +39,46 @@ public class PlayerController : MonoBehaviour
     Vector3 bodyLocalScaleStand = Vector3.one;
     Vector3 bodyLocalPosStand = Vector3.zero;
 
+    // Cache movement direction for FixedUpdate
+    Vector3 wishDir = Vector3.zero;
+    float smoothedHeight;
+
     void Awake()
     {
         cc = GetComponent<CharacterController>();
         gravity = GetComponent<Gravity>();
 
-        // initialize controller
         cc.height = standHeight;
         cc.center = controllerCenterStand;
         currentTargetHeight = standHeight;
-
-        if (bodyRoot != null)
-        {
-            bodyLocalScaleStand = bodyRoot.localScale;
-            bodyLocalPosStand = bodyRoot.localPosition;
-        }
+        smoothedHeight = standHeight;
     }
 
     void Update()
     {
-        Vector3 wishDir = Vector3.zero;
-        {
-            var move = moveInput;
-            wishDir = (move.y * transform.forward) + (move.x * transform.right);
-            wishDir = Vector3.ClampMagnitude(wishDir, 1f);
-        }
+        // --- Handle camera and visuals per frame (not physics) ---
+        float t = Mathf.InverseLerp(standHeight, crouchHeight, smoothedHeight);
+    }
+
+    void FixedUpdate()
+    {
+        // --- Handle movement & physics in fixed time steps ---
+
+        // --- Calculate movement direction relative to the camera --- //
+        var move = moveInput;
+        Transform cam = Camera.main.transform;
+
+        // Use camera forward/right but ignore vertical tilt
+        Vector3 camForward = cam.forward;
+        Vector3 camRight = cam.right;
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        // Build movement vector relative to camera
+        wishDir = (move.y * camForward) + (move.x * camRight);
+        wishDir = Vector3.ClampMagnitude(wishDir, 1f);
 
         bool crouching = wantCrouch;
         bool sprinting = wantSprint && !crouching;
@@ -76,47 +90,42 @@ public class PlayerController : MonoBehaviour
         Vector3 horizontal = wishDir * speed;
         Vector3 velocity = new Vector3(horizontal.x, gravity.VerticalVelocity, horizontal.z);
 
-        cc.Move(velocity * Time.deltaTime);
+        // Move character
+        cc.Move(velocity * Time.fixedDeltaTime);
 
+        // Adjust capsule height and center smoothly
         if (crouching)
         {
             currentTargetHeight = crouchHeight;
-            cc.center = Vector3.Lerp(cc.center, controllerCenterCrouch, Time.deltaTime * heightChangeSpeed);
+            cc.center = Vector3.Lerp(cc.center, controllerCenterCrouch, Time.fixedDeltaTime * heightChangeSpeed);
         }
         else
         {
             currentTargetHeight = HasHeadroomToStand() ? standHeight : crouchHeight;
             cc.center = Vector3.Lerp(cc.center,
-                (Mathf.Approximately(currentTargetHeight, standHeight) ? controllerCenterStand : controllerCenterCrouch),
-                Time.deltaTime * heightChangeSpeed);
+                Mathf.Approximately(currentTargetHeight, standHeight) ? controllerCenterStand : controllerCenterCrouch,
+                Time.fixedDeltaTime * heightChangeSpeed);
         }
 
-        float newHeight = Mathf.MoveTowards(cc.height, currentTargetHeight, heightChangeSpeed * Time.deltaTime);
+        float newHeight = Mathf.MoveTowards(cc.height, currentTargetHeight, heightChangeSpeed * Time.fixedDeltaTime);
         if (!Mathf.Approximately(newHeight, cc.height))
             cc.height = newHeight;
 
+        // Apply jump pulse if requested
         ConsumeJumpPulseIfAny(s => gravity.Jump(s), jumpSpeed);
 
+        // Store smoothed height for visual update
+        smoothedHeight = cc.height;
 
-        float t = Mathf.InverseLerp(standHeight, crouchHeight, cc.height); // 0=stand,1=crouch
-
-        if (cameraTransform != null)
+        // --- Update Cinemachine camera target height ---
+        if (cameraTarget != null)
         {
-            float targetEyeY = Mathf.Lerp(eyeHeightStand, eyeHeightCrouch, t);
-            Vector3 targetCamPos = transform.position + camOffsetFromFeetXZ + Vector3.up * targetEyeY;
-            cameraTransform.position = Vector3.Lerp(cameraTransform.position, targetCamPos, visualLerpSpeed * Time.deltaTime);
+            float t = Mathf.InverseLerp(standHeight, crouchHeight, cc.height);
+            float targetY = Mathf.Lerp(eyeHeightStand, eyeHeightCrouch, t);
+            Vector3 targetPos = new Vector3(0, targetY, 0);
+            cameraTarget.localPosition = Vector3.Lerp(cameraTarget.localPosition, targetPos, cameraLerpSpeed * Time.fixedDeltaTime);
         }
 
-        if (bodyRoot != null)
-        {
-            float yScale = Mathf.Clamp(cc.height / standHeight, 0.01f, 10f);
-            Vector3 targetScale = new Vector3(bodyLocalScaleStand.x, bodyLocalScaleStand.y * yScale, bodyLocalScaleStand.z);
-            bodyRoot.localScale = Vector3.Lerp(bodyRoot.localScale, targetScale, visualLerpSpeed * Time.deltaTime);
-
-            float deltaH = (standHeight - cc.height);
-            Vector3 targetLocalPos = bodyLocalPosStand + Vector3.down * (deltaH * 0.5f);
-            bodyRoot.localPosition = Vector3.Lerp(bodyRoot.localPosition, targetLocalPos, visualLerpSpeed * Time.deltaTime);
-        }
     }
 
     public void ConsumeJumpPulseIfAny(System.Action<float> onJump, float jumpSpeedValue)
@@ -130,6 +139,7 @@ public class PlayerController : MonoBehaviour
     {
         float radius = Mathf.Max(0.1f, cc.radius * 0.95f);
         Vector3 head = transform.position + cc.center + Vector3.up * (cc.height * 0.5f - radius);
-        return !Physics.SphereCast(head, radius * 0.95f, Vector3.up, out _, 0.15f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+        return !Physics.SphereCast(head, radius * 0.95f, Vector3.up, out _, 0.15f,
+            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
     }
 }
