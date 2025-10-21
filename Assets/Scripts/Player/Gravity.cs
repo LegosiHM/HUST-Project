@@ -16,7 +16,7 @@ public class Gravity : MonoBehaviour
         cc = GetComponent<CharacterController>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         bool grounded = cc.isGrounded;
 
