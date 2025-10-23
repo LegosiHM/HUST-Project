@@ -2750,7 +2750,7 @@ Transform:
   m_GameObject: {fileID: 48542580}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.24224, y: 2, z: -2.3842301}
+  m_LocalPosition: {x: -4.23, y: 2, z: -2.3842301}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -40255,6 +40255,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 336190264092112187, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 914022456961869745, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}
+      propertyPath: m_Name
+      value: InGameUICanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1738402903598920437, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}
+      propertyPath: itemSlot.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607599996672978583, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607599996672978583, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607599996672978583, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8515848284031459442, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}

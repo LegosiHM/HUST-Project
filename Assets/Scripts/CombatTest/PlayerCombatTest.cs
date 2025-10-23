@@ -8,6 +8,7 @@ public class PlayerCombatTest : MonoBehaviour
     [SerializeField] private Transform hitBoxPosition;
     [SerializeField] private float comboCooldown = 1f;
 
+    private Camera playerCamera;
     private Vector3 originalScale;
     private Vector3 newScale;
     private Coroutine cooldownCoroutine;
@@ -56,5 +57,7 @@ public class PlayerCombatTest : MonoBehaviour
 
         cooldownCoroutine = StartCoroutine(Wait(comboCooldown));
     }
+
+    
     
 }

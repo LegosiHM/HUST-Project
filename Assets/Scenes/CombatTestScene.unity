@@ -31302,6 +31302,10 @@ PrefabInstance:
       propertyPath: heightChangeSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1363634301962557009, guid: 1817be713f9809e4dbc0bdfd85f701aa, type: 3}
+      propertyPath: controllerCenterCrouch.y
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 4283734078138949186, guid: 1817be713f9809e4dbc0bdfd85f701aa, type: 3}
       propertyPath: m_Name
       value: Player
@@ -31320,11 +31324,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5344795570792453396, guid: 1817be713f9809e4dbc0bdfd85f701aa, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5640263808760307339, guid: 1817be713f9809e4dbc0bdfd85f701aa, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6015139802408324954, guid: 1817be713f9809e4dbc0bdfd85f701aa, type: 3}
+      propertyPath: near clip plane
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6033505854458978140, guid: 1817be713f9809e4dbc0bdfd85f701aa, type: 3}
       propertyPath: m_UseSpriteMesh
@@ -31341,6 +31349,10 @@ PrefabInstance:
     - target: {fileID: 6493354769060707873, guid: 1817be713f9809e4dbc0bdfd85f701aa, type: 3}
       propertyPath: sensY
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6493354769060707873, guid: 1817be713f9809e4dbc0bdfd85f701aa, type: 3}
+      propertyPath: YRotOnly
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7672705101393565929, guid: 1817be713f9809e4dbc0bdfd85f701aa, type: 3}
       propertyPath: m_RendererIndex
@@ -31455,6 +31467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8df13b93bed424d8d039b6bc40c97d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerContext
+  fsm: {fileID: 0}
   motor: {fileID: 0}
   gravity: {fileID: 0}
   cc: {fileID: 0}
@@ -31476,6 +31489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8df13b93bed424d8d039b6bc40c97d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerContext
+  fsm: {fileID: 0}
   motor: {fileID: 0}
   gravity: {fileID: 0}
   cc: {fileID: 0}
