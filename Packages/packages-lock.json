@@ -171,6 +171,9 @@
       },
       "url": "https://packages.unity.com"
     },
+<<<<<<< HEAD
+>>>>>>> parent of 89e07f8 (10/20/2025 Updated)
+=======
 >>>>>>> parent of 89e07f8 (10/20/2025 Updated)
     "com.unity.shadergraph": {
       "version": "17.2.0",
