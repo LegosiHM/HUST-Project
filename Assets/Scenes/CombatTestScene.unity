@@ -4244,7 +4244,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.031264, y: 0.031264, z: 0.031264}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1822828982}
@@ -4274,7 +4274,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2ec47d810a0f34fd29e17da2c7b72e24, type: 2}
+  - {fileID: 2100000, guid: ee178595c69007f46bf030c509a32f14, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4841,7 +4841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3628beea337e7184988975337f4fe862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  walkSpeed: 2
+  walkSpeed: 1.5
   sprintMultiplier: 2
   crouchMoveSpeed: 1
   standHeight: 1
@@ -5024,6 +5024,7 @@ GameObject:
   - component: {fileID: 507422532701822440}
   - component: {fileID: 5797548265768066971}
   - component: {fileID: 2132287456}
+  - component: {fileID: 7939609833309275941}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -5485,6 +5486,48 @@ Transform:
   - {fileID: 3927204019129688615}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &7939609833309275941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4283734078960501150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa2cf5217742b84aa5377e076f92244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SurvivalStats
+  crosshair: {fileID: 1822828982}
+  anxiousCrosshairRangeX: 0.05
+  anxiousCrosshairRangeY: 0.05
+  anxiousCrosshairMoveSpeed: 0.3
+  _maxHP: 100
+  _maxEnergy: 100
+  _recoveryEnergyOnIdle: 0.1
+  _baseEnergyRestoreCooldownAfterAction: 3
+  _walkingEnergy: 0
+  _crouchingEnergy: 0.5
+  _runningEnergy: 1
+  _lightAttackEnergy: 1
+  _specialAttackEnergy: 2
+  baseSpeedPoint: 12
+  softCapSpeedPoint: 60
+  maxSpeedMultiplier: 3
+  steepness: 0.5
+  _maxBrainwave: 100
+  _baseBrainwaveChangeRate: 0.3
+  _baseWaveDecreaseCooldownAfterGettingHit: 3
+  _currentBrainwaveCooldown: 0
+  _currentBrainwave: 0
+  _brainWaveLevel: 0
+  _currentBrainwaveChangeRate: 0
+  _currentEnergy: 0
+  _brainwaveEnergyMuliplier: 0
+  _currentEnergyConsumption: 0
+  _currentEnergyCooldown: 0
+  _brainwaveSpeedMultiplier: 0
+  _anxiousCrosshairMultiplier: 0
 --- !u!1 &8672021368875755196
 GameObject:
   m_ObjectHideFlags: 0
