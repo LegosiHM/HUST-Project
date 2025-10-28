@@ -13,6 +13,12 @@ public class SurvivalStats : MonoBehaviour
     [SerializeField] private float anxiousCrosshairMoveSpeed = 0.5f;
     private Vector3 originalCrosshairPosition;
 
+    [SerializeField] private RectTransform handSprite;
+    [SerializeField] private float anxiousHandspriteRangeX = 20f;
+    [SerializeField] private float anxiousHandspriteRangeY = -10f;
+    [SerializeField] private float anxiousHandspriteMoveSpeed = 30f;
+    private Vector3 originalHandspritePosition;
+
     [Header("HP")]
     [SerializeField] private float _maxHP = 100f;
     private float _currentHP;
@@ -76,6 +82,7 @@ public class SurvivalStats : MonoBehaviour
     void Start()
     {
         originalCrosshairPosition = crosshair.transform.localPosition;
+        originalHandspritePosition = handSprite.transform.localPosition;
 
         //set HP
         _currentHP = _maxHP;
@@ -165,6 +172,7 @@ public class SurvivalStats : MonoBehaviour
         {
             _brainWaveLevel = 4; //Beta
             crosshair.transform.localPosition = originalCrosshairPosition;
+            handSprite.transform.localPosition = originalHandspritePosition;
         }
         else if (_currentBrainwave >= 30)
         {
@@ -236,5 +244,12 @@ public class SurvivalStats : MonoBehaviour
                                                 originalCrosshairPosition.z);
 
         crosshair.transform.localPosition = Vector3.MoveTowards(crosshair.transform.localPosition, newCrosshairPosition, anxiousCrosshairMoveSpeed * _anxiousCrosshairMultiplier * Time.deltaTime);
+
+        Vector3 newHandspritePosition = new Vector3(Random.Range(-anxiousHandspriteRangeX * _anxiousCrosshairMultiplier, anxiousHandspriteRangeX * _anxiousCrosshairMultiplier),
+                                                Random.Range(anxiousHandspriteRangeY , originalHandspritePosition.y),
+                                                originalHandspritePosition.z);
+
+        handSprite.transform.localPosition = Vector3.MoveTowards(handSprite.transform.localPosition, newHandspritePosition, anxiousHandspriteMoveSpeed * _anxiousCrosshairMultiplier * Time.deltaTime);
+
     }
 }

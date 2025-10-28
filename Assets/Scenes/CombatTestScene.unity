@@ -5502,6 +5502,10 @@ MonoBehaviour:
   anxiousCrosshairRangeX: 0.05
   anxiousCrosshairRangeY: 0.05
   anxiousCrosshairMoveSpeed: 0.3
+  handSprite: {fileID: 7675820141326453329}
+  anxiousHandspriteRangeX: 20
+  anxiousHandspriteRangeY: -10
+  anxiousHandspriteMoveSpeed: 30
   _maxHP: 100
   _maxEnergy: 100
   _recoveryEnergyOnIdle: 0.1
