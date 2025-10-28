@@ -3,6 +3,8 @@ using Unity.Mathematics;
 using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using Random = UnityEngine.Random;
 
 public class SurvivalStats : MonoBehaviour
@@ -19,6 +21,10 @@ public class SurvivalStats : MonoBehaviour
     [SerializeField] private float anxiousHandspriteMoveSpeed = 30f;
     private Vector3 originalHandspritePosition;
 
+    [SerializeField] private Volume postProcessVolume;
+    [SerializeField] private float maxVignetteIntensity = 0.9f;
+    private Vignette playerVignette;
+
     [Header("HP")]
     [SerializeField] private float _maxHP = 100f;
     private float _currentHP;
@@ -31,7 +37,7 @@ public class SurvivalStats : MonoBehaviour
 
     public float currentEnergy => _currentEnergy;
 
-    [Header("BaseEnergyConsumptionPerAction")]
+    [Header("Base Energy Consumption Per Action")]
     [SerializeField] private float _walkingEnergy = 0f; //per second
     [SerializeField] private float _crouchingEnergy = 0.5f; //per second
     [SerializeField] private float _runningEnergy = 1f; //per second
@@ -39,7 +45,7 @@ public class SurvivalStats : MonoBehaviour
     [SerializeField] private float _lightAttackEnergy = 1f; //per use
     [SerializeField] private float _specialAttackEnergy = 2f; //per use
 
-    [Header("SpeedAdjustmentPerBrainwave")]
+    [Header("Speed Adjustment Per Brainwave")]
     [SerializeField] private float baseSpeedPoint = 12f; //at this brainwave point, the speed will be base speed
     [SerializeField] private float softCapSpeedPoint = 60f; //after this point, speed will increase a lot slower
     [SerializeField] private float maxSpeedMultiplier = 2f; //hard cap. Speed will not go over this.
@@ -59,7 +65,7 @@ public class SurvivalStats : MonoBehaviour
 
     private float baseSpeed;
 
-    [Header("TestOnlyInspector")]
+    [Header("Test Only Inspector")]
     [SerializeField] private float _currentBrainwaveCooldown;
     [SerializeField] private float _currentBrainwave;
     [SerializeField] private int _brainWaveLevel; //Delta (1)-> Theta (2)-> Alpha (3)-> Beta (4)-> Gamma (5)
@@ -83,6 +89,10 @@ public class SurvivalStats : MonoBehaviour
     {
         originalCrosshairPosition = crosshair.transform.localPosition;
         originalHandspritePosition = handSprite.transform.localPosition;
+        if(!postProcessVolume.profile.TryGet(out playerVignette))
+        {
+            Debug.Log("Vignette not found!");
+        }
 
         //set HP
         _currentHP = _maxHP;
@@ -159,14 +169,17 @@ public class SurvivalStats : MonoBehaviour
         if (_currentBrainwave >= 0 && _currentBrainwave < 4)
         {
             _brainWaveLevel = 1; //Delta
+            GraduallyChangeVignette();
         }
         else if (_currentBrainwave >= 4 && _currentBrainwave < 8)
         {
             _brainWaveLevel = 2; //Theta
+            GraduallyChangeVignette();
         }
         else if (_currentBrainwave >= 8 && _currentBrainwave < 12)
         {
             _brainWaveLevel = 3; //Alpha
+            GraduallyChangeVignette();
         }
         else if (_currentBrainwave >= 12 && _currentBrainwave < 30)
         {
@@ -251,5 +264,10 @@ public class SurvivalStats : MonoBehaviour
 
         handSprite.transform.localPosition = Vector3.MoveTowards(handSprite.transform.localPosition, newHandspritePosition, anxiousHandspriteMoveSpeed * _anxiousCrosshairMultiplier * Time.deltaTime);
 
+    }
+
+    private void GraduallyChangeVignette() //0 = maxIntensity, 12 = 0
+    {
+        playerVignette.intensity.value = maxVignetteIntensity - (_currentBrainwave / (12/maxVignetteIntensity));
     }
 }
