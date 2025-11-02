@@ -41,7 +41,6 @@ public class FlashlightControl : MonoBehaviour
     void Update()
     {
         isFlashlightOn = flashlightComponent.enabled;
-        Debug.Log(isFlashlightOn);
 
         RandomFlashlightToggle();
 

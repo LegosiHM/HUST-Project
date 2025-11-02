@@ -21,11 +21,17 @@ public class SurvivalStats : MonoBehaviour
     [SerializeField] private float anxiousHandspriteMoveSpeed = 30f;
     private Vector3 originalHandspritePosition;
 
+    [Header("Brainwave Visual")]
     [SerializeField] private Volume postProcessVolume;
 
     [SerializeField] private float minVignetteIntensity = 0.3f;
     [SerializeField] private float maxVignetteIntensity = 0.9f;
     private Vignette playerVignette;
+
+    [SerializeField] private float maxFilmGrainIntensity = 1.0f;
+    [SerializeField] private float maxChromaticIntensity = 1.0f;
+    private FilmGrain playerFilmGrain;
+    private ChromaticAberration playerChromatic;
 
     [Header("HP")]
     [SerializeField] private float _maxHP = 100f;
@@ -91,9 +97,18 @@ public class SurvivalStats : MonoBehaviour
     {
         originalCrosshairPosition = crosshair.transform.localPosition;
         originalHandspritePosition = handSprite.transform.localPosition;
+
         if(!postProcessVolume.profile.TryGet(out playerVignette))
         {
             Debug.Log("Vignette not found!");
+        }
+        if (!postProcessVolume.profile.TryGet(out playerFilmGrain))
+        {
+            Debug.Log("FilmGrain not found!");
+        }
+        if (!postProcessVolume.profile.TryGet(out playerChromatic))
+        {
+            Debug.Log("Chromatic not found!");
         }
 
         //set HP
@@ -126,9 +141,15 @@ public class SurvivalStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mouse.current.rightButton.wasPressedThisFrame) // test only
+        if (Keyboard.current.qKey.wasPressedThisFrame) // test only - decrease Brainwave
         {
-            TakeDMG(1f, 1f);
+            _currentBrainwave -= 3;
+            _currentBrainwave = Mathf.Clamp(_currentBrainwave, 0f, 100f);
+        }
+        if (Keyboard.current.eKey.wasPressedThisFrame) // test only - increase Brainwave
+        {
+            _currentBrainwave += 3;
+            _currentBrainwave = Mathf.Clamp(_currentBrainwave, 0f, 100f);
         }
 
         CheckBrainwaveLevel();
@@ -188,11 +209,15 @@ public class SurvivalStats : MonoBehaviour
             _brainWaveLevel = 4; //Beta
             crosshair.transform.localPosition = originalCrosshairPosition;
             handSprite.transform.localPosition = originalHandspritePosition;
+            playerFilmGrain.intensity.value = 0f;
+            playerChromatic.intensity.value = 0f;
         }
         else if (_currentBrainwave >= 30)
         {
             _brainWaveLevel = 5; //Gamma
             RandomlyChangeCrosshairPositionWithinRange();
+            GraduallyChangeFilmGrain();
+            GraduallyChangeChromatic();
         }
     }
 
@@ -272,5 +297,15 @@ public class SurvivalStats : MonoBehaviour
     {
         playerVignette.intensity.value = minVignetteIntensity + ((maxVignetteIntensity-minVignetteIntensity) - (_currentBrainwave / (12/ maxVignetteIntensity - minVignetteIntensity)));
         playerVignette.intensity.value = Mathf.Clamp(playerVignette.intensity.value, minVignetteIntensity, maxVignetteIntensity);
+    }
+    private void GraduallyChangeFilmGrain() //100 = maxIntensity, 30 = 0
+    {
+        playerFilmGrain.intensity.value = ((_currentBrainwave - 30) / 70) * maxFilmGrainIntensity;
+        playerFilmGrain.intensity.value = Mathf.Clamp(playerFilmGrain.intensity.value, 0, maxFilmGrainIntensity);
+    }
+    private void GraduallyChangeChromatic() //100 = maxIntensity, 30 = 0
+    {
+        playerChromatic.intensity.value = ((_currentBrainwave - 30) / 70) * maxChromaticIntensity;
+        playerChromatic.intensity.value = Mathf.Clamp(playerChromatic.intensity.value, 0, maxChromaticIntensity);
     }
 }
