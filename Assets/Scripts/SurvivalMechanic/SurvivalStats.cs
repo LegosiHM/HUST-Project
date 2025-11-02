@@ -22,6 +22,8 @@ public class SurvivalStats : MonoBehaviour
     private Vector3 originalHandspritePosition;
 
     [SerializeField] private Volume postProcessVolume;
+
+    [SerializeField] private float minVignetteIntensity = 0.3f;
     [SerializeField] private float maxVignetteIntensity = 0.9f;
     private Vignette playerVignette;
 
@@ -106,7 +108,7 @@ public class SurvivalStats : MonoBehaviour
         //set Brainwave
         _currentBrainwave = 20f;
         _currentBrainwaveCooldown = 0f;
-
+        playerVignette.intensity.value = minVignetteIntensity;
         /*
          * 5 Brainwave States
          * Delta(1)  = 0.5-3.9 -> Deep Sleep State -> Decrease 4.5 times slower from Normal Rate  
@@ -266,8 +268,9 @@ public class SurvivalStats : MonoBehaviour
 
     }
 
-    private void GraduallyChangeVignette() //0 = maxIntensity, 12 = 0
+    private void GraduallyChangeVignette() //0 = maxIntensity, 12 = minIntensity
     {
-        playerVignette.intensity.value = maxVignetteIntensity - (_currentBrainwave / (12/maxVignetteIntensity));
+        playerVignette.intensity.value = minVignetteIntensity + ((maxVignetteIntensity-minVignetteIntensity) - (_currentBrainwave / (12/ maxVignetteIntensity - minVignetteIntensity)));
+        playerVignette.intensity.value = Mathf.Clamp(playerVignette.intensity.value, minVignetteIntensity, maxVignetteIntensity);
     }
 }
