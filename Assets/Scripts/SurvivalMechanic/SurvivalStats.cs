@@ -267,7 +267,7 @@ public class SurvivalStats : MonoBehaviour
 
     public void TakeDMG(float damage, float increaseBrainwave)
     {
-        _currentBrainwave += 3;
+        _currentBrainwave += increaseBrainwave;
         _currentBrainwaveCooldown = _baseWaveDecreaseCooldownAfterGettingHit;
     }
     private void CheckBrainwaveAnxiousCrosshairMultiplier()
