@@ -6,6 +6,7 @@ public class MothmanFinalTriggerBox : MonoBehaviour
     [SerializeField] private Animator mothmanAnimator;
     [SerializeField] private string finalAnimationName = "Mothman";
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(playerTag))
