@@ -1340,7 +1340,7 @@ Transform:
   m_GameObject: {fileID: 5017696781134158886}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5466713, y: 0.22939247, z: 0.15883893, w: 0.78949344}
-  m_LocalPosition: {x: 0, y: 0.8999999, z: 0}
+  m_LocalPosition: {x: 1.4791605, y: 0.96363634, z: 3.890024}
   m_LocalScale: {x: 1.010101, y: 1.0101007, z: 1.0101008}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2381,6 +2381,16 @@ MonoBehaviour:
   cameraFlash: {fileID: 1429721081488390581}
   flashTime: 0.2
   fadingAnimation: {fileID: 6221257651526910290}
+  cam: {fileID: 4782246492912974296}
+  nearDistance: 0.3
+  captureRange: 20
+  physicsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  countUniqueGameObjects: 1
+  tagScores:
+  - tag: Box
+    score: 1
 --- !u!1001 &192590079447626842
 PrefabInstance:
   m_ObjectHideFlags: 0

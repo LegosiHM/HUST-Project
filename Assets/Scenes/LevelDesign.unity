@@ -4802,6 +4802,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -640
       objectReference: {fileID: 0}
+    - target: {fileID: 4594940370281739199, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}
+      propertyPath: photoRange
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594940370281739199, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}
+      propertyPath: captureRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594940370281739199, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}
+      propertyPath: checkOcclusion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594940370281739199, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}
+      propertyPath: detectableLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594940370281739199, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}
+      propertyPath: tagScores.Array.data[0].score
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4778921545926505051, guid: 47242f86f8905f545904eeb661c8ebe2, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -47434,9 +47454,10 @@ GameObject:
   - component: {fileID: 1123287513}
   - component: {fileID: 1123287515}
   - component: {fileID: 1123287514}
+  - component: {fileID: 1123287516}
   m_Layer: 0
   m_Name: Mesh
-  m_TagString: Untagged
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47512,6 +47533,29 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123287512}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!136 &1123287516
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123287512}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000002
+  m_Height: 2.0000002
+  m_Direction: 1
+  m_Center: {x: 0.00000005960465, y: 0, z: -0.00000008940698}
 --- !u!1001 &1125209515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54876,6 +54920,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Barrel_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1547116696582102, guid: f750d5f061e724f4c827ab6b376e2550, type: 3}
+      propertyPath: m_TagString
+      value: Box
+      objectReference: {fileID: 0}
     - target: {fileID: 4483658618797090, guid: f750d5f061e724f4c827ab6b376e2550, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -55831,6 +55879,10 @@ PrefabInstance:
     - target: {fileID: 1547116696582102, guid: f750d5f061e724f4c827ab6b376e2550, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrel_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547116696582102, guid: f750d5f061e724f4c827ab6b376e2550, type: 3}
+      propertyPath: m_TagString
+      value: Box
       objectReference: {fileID: 0}
     - target: {fileID: 4483658618797090, guid: f750d5f061e724f4c827ab6b376e2550, type: 3}
       propertyPath: m_LocalScale.x
@@ -59865,6 +59917,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Crate_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1852967516923486, guid: e1b9e21039285c042b92ea66c7f1c444, type: 3}
+      propertyPath: m_TagString
+      value: Box
+      objectReference: {fileID: 0}
     - target: {fileID: 4263531196441134, guid: e1b9e21039285c042b92ea66c7f1c444, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -59920,6 +59976,10 @@ PrefabInstance:
     - target: {fileID: 4263531196441134, guid: e1b9e21039285c042b92ea66c7f1c444, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 64008491219568898, guid: e1b9e21039285c042b92ea66c7f1c444, type: 3}
+      propertyPath: m_Convex
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -67256,6 +67316,10 @@ PrefabInstance:
     - target: {fileID: 1547116696582102, guid: f750d5f061e724f4c827ab6b376e2550, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrel_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547116696582102, guid: f750d5f061e724f4c827ab6b376e2550, type: 3}
+      propertyPath: m_TagString
+      value: Box
       objectReference: {fileID: 0}
     - target: {fileID: 4483658618797090, guid: f750d5f061e724f4c827ab6b376e2550, type: 3}
       propertyPath: m_LocalScale.x
