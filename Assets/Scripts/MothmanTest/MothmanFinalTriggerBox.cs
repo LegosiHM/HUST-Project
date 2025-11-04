@@ -5,7 +5,7 @@ public class MothmanFinalTriggerBox : MonoBehaviour
     [SerializeField] private string playerTag = "Player";
     [SerializeField] private Animator mothmanAnimator;
     [SerializeField] private string finalAnimationName = "Mothman";
-
+    [SerializeField] private float AreaBrainwaveValue = 0f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,7 +18,17 @@ public class MothmanFinalTriggerBox : MonoBehaviour
             return;
         }
     }
-
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag(playerTag))
+        {
+            other.GetComponent<SurvivalStats>().AdjustBrainwaveAreaValue(AreaBrainwaveValue);
+        }
+        else
+        {
+            return;
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag(playerTag))

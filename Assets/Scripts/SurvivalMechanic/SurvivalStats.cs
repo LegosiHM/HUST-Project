@@ -64,7 +64,7 @@ public class SurvivalStats : MonoBehaviour
     [SerializeField] private float _maxBrainwave = 100f;
     [SerializeField] private float _baseBrainwaveChangeRate = 0.3f;
     [SerializeField] private float _baseWaveDecreaseCooldownAfterGettingHit = 3f;
-
+    
     public float currentBrainwave => _currentBrainwave;
 
     private PlayerStateMachine fsm;
@@ -86,6 +86,9 @@ public class SurvivalStats : MonoBehaviour
 
     [SerializeField] private float _brainwaveSpeedMultiplier;
     [SerializeField] private float _anxiousCrosshairMultiplier;
+
+    [SerializeField] private float currentBrainwaveAreaValue;
+
     void Awake()
     {
         fsm = GetComponent<PlayerStateMachine>();
@@ -124,6 +127,7 @@ public class SurvivalStats : MonoBehaviour
         _currentBrainwave = 20f;
         _currentBrainwaveCooldown = 0f;
         playerVignette.intensity.value = minVignetteIntensity;
+        currentBrainwaveAreaValue = 0f;
         /*
          * 5 Brainwave States
          * Delta(1)  = 0.5-3.9 -> Deep Sleep State -> Decrease 4.5 times slower from Normal Rate  
@@ -157,6 +161,8 @@ public class SurvivalStats : MonoBehaviour
 
         CheckGroundMovementEnergyConsumption();
         MovementEnergyConsumption();
+
+        IncreaseBrainwaveInArea();
     }
 
     private void IdleBrainwaveDecreased()
@@ -208,7 +214,7 @@ public class SurvivalStats : MonoBehaviour
         {
             _brainWaveLevel = 4; //Beta
             crosshair.transform.localPosition = originalCrosshairPosition;
-            handSprite.transform.localPosition = originalHandspritePosition;
+            handSprite.transform.localPosition = Vector3.MoveTowards(handSprite.transform.localPosition, originalCrosshairPosition, 20f * Time.deltaTime);
             playerFilmGrain.intensity.value = 0f;
             playerChromatic.intensity.value = 0f;
         }
@@ -307,5 +313,30 @@ public class SurvivalStats : MonoBehaviour
     {
         playerChromatic.intensity.value = ((_currentBrainwave - 30) / 70) * maxChromaticIntensity;
         playerChromatic.intensity.value = Mathf.Clamp(playerChromatic.intensity.value, 0, maxChromaticIntensity);
+    }
+
+    public void AdjustBrainwaveAreaValue(float value)
+    {
+        if(value > currentBrainwaveAreaValue)
+        {
+            currentBrainwaveAreaValue = value;
+        }
+        else
+        {
+            return;
+        }
+    }
+    public void ResetBrainwaveAreaValue()
+    {
+        currentBrainwaveAreaValue = 0f;
+    }
+
+    private void IncreaseBrainwaveInArea()
+    {
+        if(currentBrainwaveAreaValue > 0)
+        {
+            _currentBrainwaveCooldown = _baseWaveDecreaseCooldownAfterGettingHit;
+            _currentBrainwave += currentBrainwaveAreaValue * Time.deltaTime;
+        }
     }
 }

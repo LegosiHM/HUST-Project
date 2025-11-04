@@ -7,6 +7,7 @@ public class MothmanTriggerboxTest : MonoBehaviour
     [SerializeField] private string ExitAnimationName;
     [SerializeField] private string IdleAnimationName;
     [SerializeField] private Animator mothmanScareAnimator;
+    [SerializeField] private float AreaBrainwaveValue = 0f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -24,25 +25,17 @@ public class MothmanTriggerboxTest : MonoBehaviour
             return;
         }
     }
-
-    /*
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag(playerTag))
         {
-            if (EnterAnimationName != null)
-            {
-                mothmanScareAnimator.Play(IdleAnimationName);
-            }
+            other.GetComponent<SurvivalStats>().AdjustBrainwaveAreaValue(AreaBrainwaveValue);
         }
         else
         {
             return;
         }
-
-
     }
-    */
 
     private void OnTriggerExit(Collider other)
     {
@@ -52,6 +45,7 @@ public class MothmanTriggerboxTest : MonoBehaviour
             {
                 mothmanScareAnimator.Play(ExitAnimationName);
             }
+            other.GetComponent<SurvivalStats>().ResetBrainwaveAreaValue();
         }
         else
         {

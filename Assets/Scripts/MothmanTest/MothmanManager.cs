@@ -21,6 +21,7 @@ public class MothmanManager : MonoBehaviour
 
     public void DestroySelf()
     {
+        playerSurvivalStats.ResetBrainwaveAreaValue();
         Destroy(gameObject);
     }
 

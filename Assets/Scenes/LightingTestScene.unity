@@ -529,7 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlashlightControl
   minRandomFlashlightDelay: 0.1
   maxRandomFlashlightDelay: 10
-  maxAnxiousRandomFlashlightMultiplier: 0.1
+  maxAnxiousRandomFlashlightMultiplier: 0.05
   secondBeforeToggleAgain: 0.05
   playerSurvivalStats: {fileID: 7939609833309275941}
   currentSecondBeforeToggleCount: 0
@@ -744,6 +744,7 @@ MonoBehaviour:
   ExitAnimationName: LV3_Idle
   IdleAnimationName: LV2_Idle
   mothmanScareAnimator: {fileID: 301517062}
+  AreaBrainwaveValue: 2
 --- !u!135 &348882961
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -763,7 +764,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5
+  m_Radius: 7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &349323446 stripped
 Transform:
@@ -1392,6 +1393,7 @@ MonoBehaviour:
   ExitAnimationName: LV4_Exit
   IdleAnimationName: LV4_Idle
   mothmanScareAnimator: {fileID: 301517062}
+  AreaBrainwaveValue: 0.5
 --- !u!135 &708210363
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1411,7 +1413,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 12
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &784913611
 PrefabInstance:
@@ -1601,7 +1603,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 3
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &954168697
 MonoBehaviour:
@@ -1618,6 +1620,7 @@ MonoBehaviour:
   playerTag: Player
   mothmanAnimator: {fileID: 499450318}
   finalAnimationName: Mothman
+  AreaBrainwaveValue: 3
 --- !u!1 &958331205
 GameObject:
   m_ObjectHideFlags: 0
@@ -2696,6 +2699,7 @@ MonoBehaviour:
   ExitAnimationName: LV4_Idle
   IdleAnimationName: LV3_Idle
   mothmanScareAnimator: {fileID: 301517062}
+  AreaBrainwaveValue: 1
 --- !u!135 &1893390615
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2715,7 +2719,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 8
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1930150578
 PrefabInstance:
@@ -2823,7 +2827,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.0015, y: 0.0015, z: 0.0015}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1822828982}
@@ -3763,13 +3767,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurvivalStats
   crosshair: {fileID: 1822828982}
-  anxiousCrosshairRangeX: 0.1
-  anxiousCrosshairRangeY: 0.1
-  anxiousCrosshairMoveSpeed: 0.6
+  anxiousCrosshairRangeX: 0.2
+  anxiousCrosshairRangeY: 0.2
+  anxiousCrosshairMoveSpeed: 1
   handSprite: {fileID: 7675820141326453329}
-  anxiousHandspriteRangeX: 30
+  anxiousHandspriteRangeX: 50
   anxiousHandspriteRangeY: -20
-  anxiousHandspriteMoveSpeed: 50
+  anxiousHandspriteMoveSpeed: 100
   postProcessVolume: {fileID: 958331206}
   minVignetteIntensity: 0.3
   maxVignetteIntensity: 0.9
@@ -3801,6 +3805,7 @@ MonoBehaviour:
   _currentEnergyCooldown: 0
   _brainwaveSpeedMultiplier: 0
   _anxiousCrosshairMultiplier: 0
+  currentBrainwaveAreaValue: 0
 --- !u!1 &8672021368875755196
 GameObject:
   m_ObjectHideFlags: 0
