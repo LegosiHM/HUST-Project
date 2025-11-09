@@ -16,7 +16,7 @@ public class MothmanManager : MonoBehaviour
 
     public void IncreasePlayerBrainwave()
     {
-        playerSurvivalStats.TakeDMG(0f, 60f);
+        playerSurvivalStats.IncreaseBrainwave(brainwaveIncreaseAfterDisappear);
     }
 
     public void DestroySelf()

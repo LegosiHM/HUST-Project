@@ -1,3 +1,4 @@
+using System.Diagnostics.Tracing;
 using System.Security;
 using Unity.Mathematics;
 using UnityEditor.Timeline;
@@ -9,6 +10,8 @@ using Random = UnityEngine.Random;
 
 public class SurvivalStats : MonoBehaviour
 {
+    private UIVisibilityManager visibilityManager;
+
     [SerializeField] private Transform crosshair;
     [SerializeField] private float anxiousCrosshairRangeX = 0.05f;
     [SerializeField] private float anxiousCrosshairRangeY = 0.05f;
@@ -35,11 +38,13 @@ public class SurvivalStats : MonoBehaviour
 
     [Header("HP")]
     [SerializeField] private float _maxHP = 100f;
+    public float maxHP => _maxHP;
     private float _currentHP;
     public float currentHP => _currentHP;
 
     [Header("Energy")]
     [SerializeField] private float _maxEnergy = 100f;
+    public float maxEnergy => _maxEnergy;
     [SerializeField] private float _recoveryEnergyOnIdle = 0.1f;
     [SerializeField] private float _baseEnergyRestoreCooldownAfterAction = 3f;
 
@@ -50,8 +55,9 @@ public class SurvivalStats : MonoBehaviour
     [SerializeField] private float _crouchingEnergy = 0.5f; //per second
     [SerializeField] private float _runningEnergy = 1f; //per second
     //[SerializeField] private float _jumpingEnergy = 0.5f; //per use
-    [SerializeField] private float _lightAttackEnergy = 1f; //per use
-    [SerializeField] private float _specialAttackEnergy = 2f; //per use
+    [SerializeField] private float _primaryAttackEnergy = 1f; //per use - light attack
+    public float primaryAttackEnergy => _primaryAttackEnergy; //for test only. will change to delegate function later
+    [SerializeField] private float _secondaryAttackEnergy = 2f; //per use - heavy attack
 
     [Header("Speed Adjustment Per Brainwave")]
     [SerializeField] private float baseSpeedPoint = 12f; //at this brainwave point, the speed will be base speed
@@ -62,9 +68,10 @@ public class SurvivalStats : MonoBehaviour
 
     [Header("Brainwave")]
     [SerializeField] private float _maxBrainwave = 100f;
+    public float maxBrainwave => _maxBrainwave;
     [SerializeField] private float _baseBrainwaveChangeRate = 0.3f;
     [SerializeField] private float _baseWaveDecreaseCooldownAfterGettingHit = 3f;
-    
+
     public float currentBrainwave => _currentBrainwave;
 
     private PlayerStateMachine fsm;
@@ -89,11 +96,15 @@ public class SurvivalStats : MonoBehaviour
 
     [SerializeField] private float currentBrainwaveAreaValue;
 
+    [SerializeField] private bool _canUseEnergyAction;
+    public bool canUseEnergyAction => _canUseEnergyAction;
+
     void Awake()
     {
         fsm = GetComponent<PlayerStateMachine>();
         ctx = GetComponent<PlayerContext>();
         motor = GetComponent<PlayerController>();
+        visibilityManager = GetComponent<UIVisibilityManager>();
     }
 
     void Start()
@@ -101,7 +112,7 @@ public class SurvivalStats : MonoBehaviour
         originalCrosshairPosition = crosshair.transform.localPosition;
         originalHandspritePosition = handSprite.transform.localPosition;
 
-        if(!postProcessVolume.profile.TryGet(out playerVignette))
+        if (!postProcessVolume.profile.TryGet(out playerVignette))
         {
             Debug.Log("Vignette not found!");
         }
@@ -147,14 +158,29 @@ public class SurvivalStats : MonoBehaviour
     {
         if (Keyboard.current.qKey.wasPressedThisFrame) // test only - decrease Brainwave
         {
-            _currentBrainwave -= 3;
-            _currentBrainwave = Mathf.Clamp(_currentBrainwave, 0f, 100f);
+            IncreaseBrainwave(-3f);
         }
         if (Keyboard.current.eKey.wasPressedThisFrame) // test only - increase Brainwave
         {
-            _currentBrainwave += 3;
-            _currentBrainwave = Mathf.Clamp(_currentBrainwave, 0f, 100f);
+            IncreaseBrainwave(3f);
         }
+        if (Keyboard.current.iKey.wasPressedThisFrame) // test only - decrease HP
+        {
+            DecreaseHP(5f);
+        }
+        if (Keyboard.current.oKey.wasPressedThisFrame) // test only - increase HP
+        {
+            DecreaseHP(-5f);
+        }
+        if (Keyboard.current.kKey.wasPressedThisFrame) // test only - decrease Energy
+        {
+            DecreaseEnergy(5f);
+        }
+        if (Keyboard.current.lKey.wasPressedThisFrame) // test only - increase Energy
+        {
+            DecreaseEnergy(-5f);
+        }
+        CheckIfHaveEnergyLeft();
 
         CheckBrainwaveLevel();
         IdleBrainwaveDecreased();
@@ -163,6 +189,7 @@ public class SurvivalStats : MonoBehaviour
         MovementEnergyConsumption();
 
         IncreaseBrainwaveInArea();
+        IdleEnergyIncrease();
     }
 
     private void IdleBrainwaveDecreased()
@@ -214,7 +241,10 @@ public class SurvivalStats : MonoBehaviour
         {
             _brainWaveLevel = 4; //Beta
             crosshair.transform.localPosition = originalCrosshairPosition;
-            handSprite.transform.localPosition = Vector3.MoveTowards(handSprite.transform.localPosition, originalCrosshairPosition, 20f * Time.deltaTime);
+            if (visibilityManager.isUnsheath)
+            {
+                handSprite.transform.localPosition = Vector3.MoveTowards(handSprite.transform.localPosition, originalCrosshairPosition, 10f);
+            }
             playerFilmGrain.intensity.value = 0f;
             playerChromatic.intensity.value = 0f;
         }
@@ -245,6 +275,18 @@ public class SurvivalStats : MonoBehaviour
         {
             _currentEnergyConsumption = 0;
         }
+
+        _currentEnergy = Mathf.Clamp(_currentEnergy, 0f, _maxEnergy);
+    }
+
+
+    private void IdleEnergyIncrease()
+    {
+        if (ctx.Move.sqrMagnitude < 0.01f)
+        {
+            _currentEnergy += _recoveryEnergyOnIdle * _brainwaveEnergyMuliplier * Time.deltaTime;
+            _currentEnergy = Mathf.Clamp(_currentEnergy, 0, _maxEnergy);
+        }
     }
 
     private void CheckBrainwaveEnergyMultiplier()
@@ -263,19 +305,55 @@ public class SurvivalStats : MonoBehaviour
         motor.walkSpeed = baseSpeed * _brainwaveSpeedMultiplier;
     }
 
+    //Stats Consumption
+    private void CheckIfHaveEnergyLeft()
+    {
+        if (_currentEnergy <= 0)
+        {
+            _canUseEnergyAction = false;
+
+        }
+
+        else if (_currentEnergy >= 10)
+        {
+            _canUseEnergyAction = true;
+        }
+    }
+
     private void MovementEnergyConsumption()
     {
         CheckBrainwaveSpeedMultiplier();
         CheckBrainwaveEnergyMultiplier();
         _currentEnergy -= _currentEnergyConsumption * _brainwaveEnergyMuliplier * Time.deltaTime;
-        motor.walkSpeed = baseSpeed * _brainwaveSpeedMultiplier;
+        if (_canUseEnergyAction)
+        {
+            motor.walkSpeed = baseSpeed * _brainwaveSpeedMultiplier;
+        }
     }
 
-    public void TakeDMG(float damage, float increaseBrainwave)
+    public void DecreaseHP(float damage)
     {
-        _currentBrainwave += increaseBrainwave;
-        _currentBrainwaveCooldown = _baseWaveDecreaseCooldownAfterGettingHit;
+        _currentHP -= damage;
+        _currentHP = Mathf.Clamp(_currentHP, 0f, _maxHP);
     }
+
+    public void IncreaseBrainwave(float amount)
+    {
+        _currentBrainwave += amount;
+        _currentBrainwaveCooldown = _baseWaveDecreaseCooldownAfterGettingHit;
+        _currentBrainwave = Mathf.Clamp(_currentBrainwave, 0f, _maxBrainwave);
+
+    }
+
+    public void DecreaseEnergy(float amount)
+    {
+        CheckBrainwaveEnergyMultiplier();
+        _currentEnergy -= amount * _brainwaveEnergyMuliplier/2;
+        _currentEnergy = Mathf.Clamp(_currentEnergy, 0f, _maxEnergy);
+    }
+
+
+    //Anxious State
     private void CheckBrainwaveAnxiousCrosshairMultiplier()
     {
         _anxiousCrosshairMultiplier = (_currentBrainwave / 30) - 1; //will be 0 at 30, 1 at 60, 2 at 90+
@@ -292,16 +370,17 @@ public class SurvivalStats : MonoBehaviour
         crosshair.transform.localPosition = Vector3.MoveTowards(crosshair.transform.localPosition, newCrosshairPosition, anxiousCrosshairMoveSpeed * _anxiousCrosshairMultiplier * Time.deltaTime);
 
         Vector3 newHandspritePosition = new Vector3(Random.Range(-anxiousHandspriteRangeX * _anxiousCrosshairMultiplier, anxiousHandspriteRangeX * _anxiousCrosshairMultiplier),
-                                                Random.Range(anxiousHandspriteRangeY , originalHandspritePosition.y),
+                                                Random.Range(anxiousHandspriteRangeY, originalHandspritePosition.y),
                                                 originalHandspritePosition.z);
 
         handSprite.transform.localPosition = Vector3.MoveTowards(handSprite.transform.localPosition, newHandspritePosition, anxiousHandspriteMoveSpeed * _anxiousCrosshairMultiplier * Time.deltaTime);
 
     }
 
+    //visual
     private void GraduallyChangeVignette() //0 = maxIntensity, 12 = minIntensity
     {
-        playerVignette.intensity.value = minVignetteIntensity + ((maxVignetteIntensity-minVignetteIntensity) - (_currentBrainwave / (12/ maxVignetteIntensity - minVignetteIntensity)));
+        playerVignette.intensity.value = minVignetteIntensity + ((maxVignetteIntensity - minVignetteIntensity) - (_currentBrainwave / (12 / maxVignetteIntensity - minVignetteIntensity)));
         playerVignette.intensity.value = Mathf.Clamp(playerVignette.intensity.value, minVignetteIntensity, maxVignetteIntensity);
     }
     private void GraduallyChangeFilmGrain() //100 = maxIntensity, 30 = 0
@@ -315,9 +394,10 @@ public class SurvivalStats : MonoBehaviour
         playerChromatic.intensity.value = Mathf.Clamp(playerChromatic.intensity.value, 0, maxChromaticIntensity);
     }
 
+    //brainwave area
     public void AdjustBrainwaveAreaValue(float value)
     {
-        if(value > currentBrainwaveAreaValue)
+        if (value > currentBrainwaveAreaValue)
         {
             currentBrainwaveAreaValue = value;
         }
@@ -333,7 +413,7 @@ public class SurvivalStats : MonoBehaviour
 
     private void IncreaseBrainwaveInArea()
     {
-        if(currentBrainwaveAreaValue > 0)
+        if (currentBrainwaveAreaValue > 0)
         {
             _currentBrainwaveCooldown = _baseWaveDecreaseCooldownAfterGettingHit;
             _currentBrainwave += currentBrainwaveAreaValue * Time.deltaTime;
