@@ -9,10 +9,18 @@ public class Item : MonoBehaviour
     [SerializeField] private string itemDescription;
 
     private InventoryManager inventoryManager;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         inventoryManager = GameObject.Find("InGameUICanvas").GetComponent<InventoryManager>();
+    }
+
+    public void Initialize(string itemName, int quantity, Sprite sprite, string itemDescription)
+    {
+        this.itemName = itemName;
+        this.quantity = quantity;
+        this.sprite = sprite;
+        this.itemDescription = itemDescription;
     }
 
     private void OnCollisionEnter(Collision collision)
