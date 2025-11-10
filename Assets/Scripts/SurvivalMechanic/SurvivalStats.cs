@@ -282,7 +282,7 @@ public class SurvivalStats : MonoBehaviour
 
     private void IdleEnergyIncrease()
     {
-        if (ctx.Move.sqrMagnitude < 0.01f)
+        if (!motor.wantSprint || !motor.wantCrouch) //if not sprint or crouch
         {
             _currentEnergy += _recoveryEnergyOnIdle * _brainwaveEnergyMuliplier * Time.deltaTime;
             _currentEnergy = Mathf.Clamp(_currentEnergy, 0, _maxEnergy);
