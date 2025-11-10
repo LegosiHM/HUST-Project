@@ -32,8 +32,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5252604185289192592}
-  - {fileID: 1801253540273154082}
   - {fileID: 256577013003289044}
+  - {fileID: 1801253540273154082}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -95,8 +95,16 @@ MonoBehaviour:
   quantity: 0
   itemSprite: {fileID: 0}
   isFull: 0
+  itemDescription: 
+  emptySprite: {fileID: 21300000, guid: 674d6b08d3c8ba440addc9f2f5a0b610, type: 3}
+  maxNumberOfItems: 9
   quantityText: {fileID: 5631371922125824339}
   itemImage: {fileID: 6236857617551308017}
+  itemDescriptionImage: {fileID: 0}
+  itemDescriptionNameText: {fileID: 0}
+  itemDescriptionText: {fileID: 0}
+  selectedShader: {fileID: 8144729493412430569}
+  isSelected: 0
 --- !u!1 &4521974616029873881
 GameObject:
   m_ObjectHideFlags: 0
