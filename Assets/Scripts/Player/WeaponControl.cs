@@ -16,7 +16,7 @@ public class WeaponControl : MonoBehaviour
         visibilityManager = GetComponent<UIVisibilityManager>();
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (playerSurvivalStats.canUseEnergyAction && visibilityManager.isUnsheath)
         {
@@ -36,5 +36,5 @@ public class WeaponControl : MonoBehaviour
                 visibilityManager.ToggleSheathWeapon();
             }
         }
-    }
+    }*/
 }

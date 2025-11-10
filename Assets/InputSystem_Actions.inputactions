@@ -1011,6 +1011,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Photo",
+            "id": "e6c29749-311a-4356-9d7a-e1f7820f1ff0",
+            "actions": [
+                {
+                    "name": "OpenGallery",
+                    "type": "Button",
+                    "id": "b9cb3bef-7e94-4ee2-a4bd-a5942976721e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "99b3cfe8-f914-4def-99bf-4f7eefe65e0b",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenGallery",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

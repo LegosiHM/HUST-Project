@@ -1,17 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Unity.Cinemachine;
 
 public class PhotoCapture : MonoBehaviour
 {
     [Header("Photo Taker")]
     [SerializeField] private Image photoDisplayArea;
     [SerializeField] private GameObject photoFrame;
+    [SerializeField] private FilmRollUI filmRollUI;
+    //[SerializeField] private GameObject cameraUI;
     [SerializeField] private float showPhotoDuration = 0.75f;
+
+    [Header("Film Roll System")]
+    [SerializeField] private int maxFilmCapacity = 10; 
+    private List<Sprite> filmRoll = new List<Sprite>(); 
+    private int currentPhotoIndex = -1; 
 
     [Header("FlashEffect")]
     [SerializeField] private GameObject cameraFlash;
@@ -70,6 +78,10 @@ public class PhotoCapture : MonoBehaviour
     private void Start()
     {
         screenCapture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        filmRoll.Clear();
+        currentPhotoIndex = -1;
+        Debug.Log("Film roll reset for new session.");
+
     }
 
     private void Update()
@@ -89,6 +101,13 @@ public class PhotoCapture : MonoBehaviour
 
     IEnumerator CapturePhoto()
     {
+        if (filmRoll.Count >= maxFilmCapacity)
+        {
+            Debug.LogWarning("⚠️ Film roll is full! Delete some photos before taking more.");
+            yield break; // cancel taking photo
+        }
+
+        //cameraUI.SetActive(false);
         viewingPhoto = true;
 
         // Wait for end of frame so the screen read matches what was rendered.
@@ -98,7 +117,13 @@ public class PhotoCapture : MonoBehaviour
         Rect regionToRead = new Rect(0, 0, Screen.width, Screen.height);
         screenCapture.ReadPixels(regionToRead, 0, 0, false);
         screenCapture.Apply();
-        ShowPhoto();
+
+        Texture2D newPhoto = new Texture2D(screenCapture.width, screenCapture.height, screenCapture.format, false);
+        newPhoto.SetPixels(screenCapture.GetPixels());
+        newPhoto.Apply();
+
+        ShowPhoto(newPhoto);
+
 
         // 2) Score what’s inside the “photo” using an oriented OverlapBox that approximates the camera frustum slice
         int totalScore = ComputePhotoScore();
@@ -110,14 +135,17 @@ public class PhotoCapture : MonoBehaviour
         photoFrame.SetActive(false);
     }
 
-    void ShowPhoto()
+    void ShowPhoto(Texture2D photoTexture)
     {
         Sprite photoSprite = Sprite.Create(
-            screenCapture,
-            new Rect(0.0f, 0.0f, screenCapture.width, screenCapture.height),
+            photoTexture,
+            new Rect(0.0f, 0.0f, photoTexture.width, photoTexture.height),
             new Vector2(0.5f, 0.5f),
             100.0f
         );
+
+        // Save to film roll before displaying
+        filmRoll.Add(photoSprite);
 
         photoDisplayArea.sprite = photoSprite;
         photoFrame.SetActive(true);
@@ -139,6 +167,7 @@ public class PhotoCapture : MonoBehaviour
     {
         viewingPhoto = false;
         photoFrame.SetActive(false);
+        //cameraUI.SetActive(true);
     }
 
     // --- Core scoring logic ---
@@ -196,6 +225,25 @@ public class PhotoCapture : MonoBehaviour
 
         return totalScore;
     }
+
+    public void DeletePhoto(int index)
+    {
+        if (index < 0 || index >= filmRoll.Count)
+        {
+            Debug.LogWarning("Invalid photo index!");
+            return;
+        }
+
+        filmRoll.RemoveAt(index);
+        Debug.Log($"Deleted photo #{index + 1}. Remaining: {filmRoll.Count}/{maxFilmCapacity}");
+    }
+
+    public void OnOpenGallery(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        filmRollUI.Open(filmRoll);
+    }
+
 
 
 #if UNITY_EDITOR
