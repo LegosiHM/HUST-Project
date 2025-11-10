@@ -12,12 +12,16 @@ public class PlayerUIManager : MonoBehaviour
     [Header("Energy UI")]
     [SerializeField] private Image EnergyUI;
 
+    [Header("Brainwave UI")]
+    [SerializeField] private Renderer brainwaveUI;
+
     [Header("Others")]
     [SerializeField] private SurvivalStats playerSurvivalStats;
     private float currentHP => playerSurvivalStats.currentHP;
     private float maxHP => playerSurvivalStats.maxHP;
     private float currentEnergy => playerSurvivalStats.currentEnergy;
     private float maxEnergy => playerSurvivalStats.maxEnergy;
+    private float brainWaveLevel => playerSurvivalStats.brainWaveLevel;
 
     void Start()
     {
@@ -28,6 +32,7 @@ public class PlayerUIManager : MonoBehaviour
     {
         HealthVisualChange();
         EnergyVisualChange();
+        SetBrainwaveState();
     }
 
     private void HealthVisualChange() //will change to work with delegate function later
@@ -61,5 +66,50 @@ public class PlayerUIManager : MonoBehaviour
 
         energyUIScale.x = currentEnergy / maxEnergy;
         EnergyUI.transform.localScale = energyUIScale;
+    }
+
+    private void SetBrainwaveState()
+    {
+        if(brainWaveLevel == 1)
+        {
+            brainwaveUI.material.SetFloat("_WavesAmount", 1.5f);
+            brainwaveUI.material.SetFloat("_WavesAmp", 0.23f);
+            brainwaveUI.material.SetFloat("_Speed", 0.25f);
+            brainwaveUI.material.SetFloat("_NoiseAmp", 7f);
+            brainwaveUI.material.SetFloat("_NoiseScale", 1f);
+        }
+        else if (brainWaveLevel == 2)
+        {
+            brainwaveUI.material.SetFloat("_WavesAmount", 2f);
+            brainwaveUI.material.SetFloat("_WavesAmp", 0.3f);
+            brainwaveUI.material.SetFloat("_Speed", 0.3f);
+            brainwaveUI.material.SetFloat("_NoiseAmp", 7f);
+            brainwaveUI.material.SetFloat("_NoiseScale", 1.2f);
+        }
+        else if(brainWaveLevel == 3)
+        {
+            brainwaveUI.material.SetFloat("_WavesAmount", 6f);
+            brainwaveUI.material.SetFloat("_WavesAmp", 0.22f);
+            brainwaveUI.material.SetFloat("_Speed", 0.5f);
+            brainwaveUI.material.SetFloat("_NoiseAmp", 1.2f);
+            brainwaveUI.material.SetFloat("_NoiseScale", 2.3f);
+        }
+        else if (brainWaveLevel == 4)
+        {
+            brainwaveUI.material.SetFloat("_WavesAmount", 12f);
+            brainwaveUI.material.SetFloat("_WavesAmp", 0.1f);
+            brainwaveUI.material.SetFloat("_Speed", 0.5f);
+            brainwaveUI.material.SetFloat("_NoiseAmp", 2.42f);
+            brainwaveUI.material.SetFloat("_NoiseScale", 2.3f);
+        }
+        else if (brainWaveLevel == 5)
+        {
+            brainwaveUI.material.SetFloat("_WavesAmount", 20f);
+            brainwaveUI.material.SetFloat("_WavesAmp", 0.071f);
+            brainwaveUI.material.SetFloat("_Speed", 0.6f);
+            brainwaveUI.material.SetFloat("_NoiseAmp", 1.5f);
+            brainwaveUI.material.SetFloat("_NoiseScale", 2f);
+        }
+
     }
 }

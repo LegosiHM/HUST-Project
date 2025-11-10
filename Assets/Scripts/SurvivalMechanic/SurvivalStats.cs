@@ -84,6 +84,7 @@ public class SurvivalStats : MonoBehaviour
     [SerializeField] private float _currentBrainwaveCooldown;
     [SerializeField] private float _currentBrainwave;
     [SerializeField] private int _brainWaveLevel; //Delta (1)-> Theta (2)-> Alpha (3)-> Beta (4)-> Gamma (5)
+    public int brainWaveLevel => _brainWaveLevel;
     [SerializeField] private float _currentBrainwaveChangeRate;
 
     [SerializeField] private float _currentEnergy;
@@ -105,12 +106,12 @@ public class SurvivalStats : MonoBehaviour
         ctx = GetComponent<PlayerContext>();
         motor = GetComponent<PlayerController>();
         visibilityManager = GetComponent<UIVisibilityManager>();
+        originalCrosshairPosition = crosshair.transform.localPosition;
+        originalHandspritePosition = handSprite.transform.localPosition;
     }
 
     void Start()
     {
-        originalCrosshairPosition = crosshair.transform.localPosition;
-        originalHandspritePosition = handSprite.transform.localPosition;
 
         if (!postProcessVolume.profile.TryGet(out playerVignette))
         {
@@ -243,7 +244,7 @@ public class SurvivalStats : MonoBehaviour
             crosshair.transform.localPosition = originalCrosshairPosition;
             if (visibilityManager.isUnsheath)
             {
-                handSprite.transform.localPosition = Vector3.MoveTowards(handSprite.transform.localPosition, originalCrosshairPosition, 10f);
+                handSprite.transform.localPosition = Vector3.MoveTowards(handSprite.transform.localPosition, originalHandspritePosition, 10f);
             }
             playerFilmGrain.intensity.value = 0f;
             playerChromatic.intensity.value = 0f;

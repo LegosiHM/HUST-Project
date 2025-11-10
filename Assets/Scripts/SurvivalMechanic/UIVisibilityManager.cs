@@ -19,7 +19,7 @@ public class UIVisibilityManager: MonoBehaviour
     [SerializeField] private CanvasGroup uiCanvas;
     [SerializeField] private float hideUIDelay = 5f;
     private float hideUIDelayCount;
-
+    
     private void Start()
     {
         sheathDelayCount = weaponSheathDelay;
@@ -103,6 +103,8 @@ public class UIVisibilityManager: MonoBehaviour
             {
                 uiCanvas.alpha += Time.deltaTime;
             }
+
+            hideUIDelayCount = hideUIDelay;
 
         }
     }
