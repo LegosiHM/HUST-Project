@@ -32,7 +32,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
-        inventoryManager = GameObject.Find("InGameUICanvas").GetComponent<InventoryManager>();
+        //inventoryManager = GameObject.Find("InGameUICanvas").GetComponent<InventoryManager>();
+        inventoryManager = FindAnyObjectByType<InventoryManager>();
     }
 
     public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription)
@@ -150,10 +151,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
         //Add a collider
         itemToDrop.AddComponent<BoxCollider>();
+        itemToDrop.GetComponent<BoxCollider>().isTrigger = true;
+        itemToDrop.AddComponent<LookAtPlayer>();
 
         //set the Location
-        itemToDrop.transform.position = GameObject.FindWithTag("Player").transform.position + new Vector3(1f , 0, 0);
-        itemToDrop.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        itemToDrop.transform.localPosition = GameObject.FindWithTag("Player").transform.position + new Vector3(-0.5f, 0.5f, 0);
+        itemToDrop.transform.localScale = new Vector3(0.03f, 0.03f, 1f);
 
         //Subtract from quantity
         this.quantity -= 1;

@@ -12,7 +12,7 @@ public class Item : MonoBehaviour
 
     void Start()
     {
-        inventoryManager = GameObject.Find("InGameUICanvas").GetComponent<InventoryManager>();
+        inventoryManager = GameObject.FindAnyObjectByType<InventoryManager>();
     }
 
     public void Initialize(string itemName, int quantity, Sprite sprite, string itemDescription)
@@ -23,9 +23,9 @@ public class Item : MonoBehaviour
         this.itemDescription = itemDescription;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("Collided with " + collision.gameObject.name + "Tag = " + collision.gameObject.tag);
+    Debug.Log("Collided with " + collision.gameObject.name + "Tag = " + collision.gameObject.tag);
         if (collision.gameObject.tag == "Player")
         {
             int leftOverItems = inventoryManager.AddItem(itemName, quantity, sprite, itemDescription);
@@ -37,7 +37,6 @@ public class Item : MonoBehaviour
             {
                 quantity = leftOverItems;
             }
-
         }
     }
 

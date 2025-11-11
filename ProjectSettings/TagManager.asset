@@ -8,6 +8,7 @@ TagManager:
   - Hurtbox
   - Weakpoint
   - Box
+  - Crosshair
   layers:
   - Default
   - TransparentFX
