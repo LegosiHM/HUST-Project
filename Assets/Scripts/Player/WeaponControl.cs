@@ -35,7 +35,7 @@ public class WeaponControl : MonoBehaviour
             {
                 if (Mouse.current.leftButton.wasPressedThisFrame) // Left mouse button down for new input system
                 {
-                    visibilityManager.ToggleSheathWeapon();
+                    visibilityManager.UnsheathWeapon();
                 }
             }
         }

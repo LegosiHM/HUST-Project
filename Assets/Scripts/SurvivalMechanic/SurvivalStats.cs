@@ -106,12 +106,12 @@ public class SurvivalStats : MonoBehaviour
         ctx = GetComponent<PlayerContext>();
         motor = GetComponent<PlayerController>();
         visibilityManager = GetComponent<UIVisibilityManager>();
-        originalCrosshairPosition = crosshair.transform.localPosition;
-        originalHandspritePosition = handSprite.transform.localPosition;
     }
 
     void Start()
     {
+        originalCrosshairPosition = crosshair.transform.localPosition;
+        originalHandspritePosition = handSprite.transform.localPosition;
 
         if (!postProcessVolume.profile.TryGet(out playerVignette))
         {
