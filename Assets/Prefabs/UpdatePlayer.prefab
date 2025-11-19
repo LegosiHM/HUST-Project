@@ -255,6 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   inventoryMenu: {fileID: 4198419097636190173}
   itemSlot: []
+  itemSOs: []
 --- !u!1 &1000392329091266029
 GameObject:
   m_ObjectHideFlags: 0
@@ -2053,7 +2054,7 @@ Transform:
   m_GameObject: {fileID: 5017696781134158886}
   serializedVersion: 2
   m_LocalRotation: {x: -0.19156669, y: 0.46658298, z: 0.10427622, w: 0.85716337}
-  m_LocalPosition: {x: 1.4791605, y: 0.96363634, z: 3.890024}
+  m_LocalPosition: {x: 0, y: 0.8999999, z: 0}
   m_LocalScale: {x: 1.010101, y: 1.0101007, z: 1.0101008}
   m_ConstrainProportionsScale: 0
   m_Children:

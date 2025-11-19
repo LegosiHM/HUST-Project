@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ed96eed4bf32a04e8beed8b1056e4b2, type: 3}
-  m_Name: Coffee
+  m_Name: EnergyPill
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  itemName: 
-  statToChange: 0
-  amountToChangeStat: 0
+  itemName: EnergyPill
+  statToChange: 3
+  amountToChangeStat: 50
   attributesToChange: 0
   amountToChangeAttribute: 0

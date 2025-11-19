@@ -1272,7 +1272,7 @@ GameObject:
   - component: {fileID: 6508696995125960501}
   - component: {fileID: 5446908911942741056}
   m_Layer: 5
-  m_Name: Camera - Canvas
+  m_Name: Photo - Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1381,7 +1381,7 @@ GameObject:
   - component: {fileID: 2732293937084260548}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3138,7 +3138,7 @@ GameObject:
   - component: {fileID: 5290482447684905066}
   - component: {fileID: 2087526572161169908}
   m_Layer: 0
-  m_Name: CameraManager
+  m_Name: PhotoManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

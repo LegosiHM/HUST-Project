@@ -353,6 +353,12 @@ public class SurvivalStats : MonoBehaviour
         _currentEnergy = Mathf.Clamp(_currentEnergy, 0f, _maxEnergy);
     }
 
+    public void IncreaseEnergy(float amount)
+    {
+        CheckBrainwaveEnergyMultiplier();
+        _currentEnergy += amount;
+        _currentEnergy = Mathf.Clamp(_currentEnergy, 0f, _maxEnergy);
+    }
 
     //Anxious State
     private void CheckBrainwaveAnxiousCrosshairMultiplier()
@@ -420,4 +426,5 @@ public class SurvivalStats : MonoBehaviour
             _currentBrainwave += currentBrainwaveAreaValue * Time.deltaTime;
         }
     }
+
 }
