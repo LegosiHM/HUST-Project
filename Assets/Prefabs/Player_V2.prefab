@@ -2282,6 +2282,7 @@ GameObject:
   - component: {fileID: 9029630302858269166}
   - component: {fileID: 554012610244791665}
   - component: {fileID: 2482179545505545124}
+  - component: {fileID: 7471611102976109218}
   m_Layer: 8
   m_Name: Player_V2
   m_TagString: Player
@@ -2297,7 +2298,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3370367316322980589}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.7071079}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -10.38, y: -0.063, z: -2.82}
   m_LocalScale: {x: 0.99, y: 0.99, z: 0.99}
   m_ConstrainProportionsScale: 1
@@ -2659,6 +2660,23 @@ MonoBehaviour:
   pointer: {fileID: 1418258755411104666}
   basePointerSpeed: 100
   baseSuccessAreaScale: 0.5
+--- !u!114 &7471611102976109218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370367316322980589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d24acdda7cefc594b83ba0753d184884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Interactor
+  interactorSource: {fileID: 5266143398281583061}
+  interactRange: 3
+  interactIcon: {fileID: 0}
+  pickupIcon: {fileID: 0}
+  inventoryManager: {fileID: 644077459238683775}
 --- !u!1 &3420435879985724463
 GameObject:
   m_ObjectHideFlags: 0
