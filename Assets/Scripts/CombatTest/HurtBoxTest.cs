@@ -77,8 +77,6 @@ public class HurtBoxTest : MonoBehaviour
                 parentRB.AddForce(playerCamera.transform.rotation * Vector3.forward * knockback / 1.2f, ForceMode.Impulse);
             }
         }
-
-
     }
 
     private IEnumerator FlashRoutine()
