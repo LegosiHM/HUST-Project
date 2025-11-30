@@ -1620,7 +1620,7 @@ MonoBehaviour:
   ReferenceFrame: 0
   RecenterTarget: 0
   PanAxis:
-    Value: 58.07734
+    Value: 64.33456
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -2447,9 +2447,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623365a21f6fa074aac2eac5c506be7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponControl
+  weaponImage: {fileID: 7923395705529736157}
+  weaponDefaultSprites:
+  - {fileID: 21300000, guid: 20d174d9e689c2342b54ffe69c5880a4, type: 3}
+  - {fileID: 21300000, guid: 5d49d936978a8944e85461ad751fbc9d, type: 3}
+  - {fileID: 21300000, guid: 233434e5995dda24580fafa930601095, type: 3}
   animator: {fileID: 2280614387173688553}
   audioSource1: {fileID: 2529400408674323158}
   pistolShoot: {fileID: 0}
+  testItemHotbarAnimation:
+  - {fileID: 7400000, guid: 28f12d645a371a541b524321a37cc987, type: 2}
+  - {fileID: 7400000, guid: cec03c7609e38e441976a23ca93709d4, type: 2}
+  - {fileID: 7400000, guid: 10379072a3dba024cab7ac4d7ad4c9ea, type: 2}
 --- !u!82 &2529400408674323158
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4822,7 +4831,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.7764706}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6862745}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -4842,7 +4851,7 @@ Animator:
   m_GameObject: {fileID: 6660670508716037034}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0eb1fad4d0211a54ba2db41c4572dd8b, type: 2}
+  m_Controller: {fileID: 22100000, guid: 8e16be8208ff5e2408fd3354ea2daf81, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
