@@ -7,17 +7,26 @@ public class MothmanFinalTriggerBox : MonoBehaviour
     [SerializeField] private string finalAnimationName = "Mothman";
     [SerializeField] private float AreaBrainwaveValue = 0f;
 
+    [Header("Audio")]
+    [SerializeField] private MothmanAudioController mothmanAudio; 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(playerTag))
         {
             mothmanAnimator.Play(finalAnimationName);
+
+            if (mothmanAudio != null)
+            {
+                mothmanAudio.TriggerJumpscare();
+            }
         }
         else
         {
             return;
         }
     }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag(playerTag))
@@ -29,6 +38,7 @@ public class MothmanFinalTriggerBox : MonoBehaviour
             return;
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag(playerTag))
@@ -39,6 +49,5 @@ public class MothmanFinalTriggerBox : MonoBehaviour
         {
             return;
         }
-
     }
 }

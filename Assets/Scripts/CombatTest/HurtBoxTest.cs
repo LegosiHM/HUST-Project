@@ -14,6 +14,10 @@ public class HurtBoxTest : MonoBehaviour
 
     [SerializeField] private ParticleSystem onHitEffect;
 
+    [Header("SFX")]
+    [SerializeField] private string punchHitSfxId = "sfx_punchhit";
+    [SerializeField] private string punchWeakPointSfxId = "sfx_punchweakpoint";
+
     private GameObject parent;
     private Rigidbody parentRB;
     private Camera playerCamera;
@@ -47,6 +51,11 @@ public class HurtBoxTest : MonoBehaviour
 
             Instantiate(onHitEffect, transform.position, transform.rotation);
 
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySFX(punchHitSfxId);
+            }
+
             parentRB.AddForce(playerCamera.transform.rotation * Vector3.forward * knockback, ForceMode.Impulse);
         }
         else if (other.CompareTag("Hitbox") && gameObject.tag == "Weakpoint") //crit damage hit
@@ -58,6 +67,11 @@ public class HurtBoxTest : MonoBehaviour
             enemyStats.TakeDMG(other.GetComponent<HitBoxTest>()._critDMG);
 
             Instantiate(onHitEffect, transform.position, transform.rotation);
+
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySFX(punchWeakPointSfxId);
+            }
 
             parentRB.AddForce(playerCamera.transform.rotation * Vector3.forward * knockback, ForceMode.Impulse);
         }

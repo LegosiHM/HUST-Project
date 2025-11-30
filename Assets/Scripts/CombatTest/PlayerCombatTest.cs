@@ -8,6 +8,9 @@ public class PlayerCombatTest : MonoBehaviour
     [SerializeField] private Transform hitBoxPosition;
     [SerializeField] private float comboCooldown = 1f;
 
+    private string punchLaunchSfxId = "sfx_punchlaunch";
+
+
     private Camera playerCamera;
     private Vector3 originalScale;
     private Vector3 newScale;
@@ -25,6 +28,12 @@ public class PlayerCombatTest : MonoBehaviour
     {
         //Debug.Log("Create Hitbox");
         Instantiate(hitBox, hitBoxPosition.position, hitBoxPosition.rotation);
+
+        if (SoundManager.Instance != null)
+        {
+            //Debug.Log("PlaySFX punch launch");
+            SoundManager.Instance.PlaySFX(punchLaunchSfxId);
+        }
 
         if (waiting)
         {

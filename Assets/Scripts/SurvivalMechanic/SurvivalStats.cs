@@ -1,4 +1,4 @@
-using System.Diagnostics.Tracing;
+﻿using System.Diagnostics.Tracing;
 using System.Security;
 using Unity.Mathematics;
 using UnityEditor.Timeline;
@@ -73,6 +73,24 @@ public class SurvivalStats : MonoBehaviour
     [SerializeField] private float _baseWaveDecreaseCooldownAfterGettingHit = 3f;
 
     public float currentBrainwave => _currentBrainwave;
+
+    [Header("Brainwave Audio (Whispers)")]
+    [SerializeField] private string whisperSfxId = "sfx_whisper";
+    [SerializeField] private float whisperMinBrainwave = 10f;    // start being audible after this
+    [SerializeField] private float whisperMaxBrainwave = 100f;   // full volume near this
+    [SerializeField][Range(0f, 1f)] private float whisperMinVolume = 0.02f;
+    [SerializeField][Range(0f, 1f)] private float whisperMaxVolume = 0.6f;
+
+    [Header("Energy Audio (Tired)")]
+    [SerializeField] private string tiredSfxId = "sfx_playertired";
+    [SerializeField] private float tiredStartEnergy = 0f;   // start tired SFX at or below this
+    [SerializeField] private float tiredStopEnergy = 15f;  // stop tired SFX when energy recovers above this
+    [SerializeField][Range(0f, 1f)] private float tiredVolume = 1f;
+
+    private bool isTiredSfxPlaying = false;
+
+
+    private float currentWhisperVolume = 0f;
 
     private PlayerStateMachine fsm;
     private PlayerContext ctx;
@@ -191,6 +209,9 @@ public class SurvivalStats : MonoBehaviour
 
         IncreaseBrainwaveInArea();
         IdleEnergyIncrease();
+
+        UpdateWhisperAudio();
+        UpdateTiredAudio();
     }
 
     private void IdleBrainwaveDecreased()
@@ -424,6 +445,55 @@ public class SurvivalStats : MonoBehaviour
         {
             _currentBrainwaveCooldown = _baseWaveDecreaseCooldownAfterGettingHit;
             _currentBrainwave += currentBrainwaveAreaValue * Time.deltaTime;
+        }
+    }
+    private void UpdateWhisperAudio()
+    {
+        if (SoundManager.Instance == null)
+            return;
+
+        float brain = _currentBrainwave;
+
+        // Below threshold → almost or completely silent
+        if (brain <= whisperMinBrainwave)
+        {
+            currentWhisperVolume = 0f;
+
+            // Option A: keep the loop alive but silent:
+            SoundManager.Instance.PlayContinuous(whisperSfxId, currentWhisperVolume);
+
+            // Option B (if you want it truly off when calm) instead:
+            // SoundManager.Instance.StopContinuous(whisperSfxId);
+
+            return;
+        }
+
+        // Map brainwave from [whisperMinBrainwave .. whisperMaxBrainwave] to [0..1]
+        float t = Mathf.InverseLerp(whisperMinBrainwave, whisperMaxBrainwave, brain);
+        t = Mathf.Clamp01(t);
+
+        // Remap [0..1] to [whisperMinVolume .. whisperMaxVolume]
+        currentWhisperVolume = Mathf.Lerp(whisperMinVolume, whisperMaxVolume, t);
+
+        // This will start the continuous sound if not playing, or update volume if already playing
+        SoundManager.Instance.PlayContinuous(whisperSfxId, currentWhisperVolume);
+    }
+    private void UpdateTiredAudio()
+    {
+        if (SoundManager.Instance == null)
+            return;
+
+        // Start tired SFX when energy is drained
+        if (!isTiredSfxPlaying && _currentEnergy <= tiredStartEnergy)
+        {
+            isTiredSfxPlaying = true;
+            SoundManager.Instance.PlayContinuous(tiredSfxId, tiredVolume);
+        }
+        // Stop tired SFX when energy has recovered enough
+        else if (isTiredSfxPlaying && _currentEnergy >= tiredStopEnergy)
+        {
+            isTiredSfxPlaying = false;
+            SoundManager.Instance.StopContinuous(tiredSfxId);
         }
     }
 

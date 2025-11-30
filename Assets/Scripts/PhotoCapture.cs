@@ -16,6 +16,9 @@ public class PhotoCapture : MonoBehaviour
     //[SerializeField] private GameObject cameraUI;
     [SerializeField] private float showPhotoDuration = 0.75f;
 
+    [Header("SFX")]
+    [SerializeField] private string shutterSfxId = "sfx_camerashutter";
+
     [Header("Film Roll System")]
     [SerializeField] private int maxFilmCapacity = 10; 
     private List<Sprite> filmRoll = new List<Sprite>(); 
@@ -109,6 +112,11 @@ public class PhotoCapture : MonoBehaviour
 
         //cameraUI.SetActive(false);
         viewingPhoto = true;
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySFX(shutterSfxId);
+        }
 
         // Wait for end of frame so the screen read matches what was rendered.
         yield return new WaitForEndOfFrame();
