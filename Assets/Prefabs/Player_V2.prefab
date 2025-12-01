@@ -1620,7 +1620,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120297450280719507}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.55013174, y: 0.23180476, z: 0.16231146, w: 0.78566957}
+  m_LocalRotation: {x: -0.39924592, y: 0.5817654, z: 0.39462587, w: 0.58857644}
   m_LocalPosition: {x: 49.18084, y: 0.9636363, z: -158.4653}
   m_LocalScale: {x: 1.0101007, y: 1.0101008, z: 1.0101007}
   m_ConstrainProportionsScale: 0
@@ -1698,7 +1698,7 @@ MonoBehaviour:
   ReferenceFrame: 0
   RecenterTarget: 0
   PanAxis:
-    Value: 16.372782
+    Value: 89.33312
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -1708,7 +1708,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   TiltAxis:
-    Value: -67.80002
+    Value: -68.300026
     Center: 0
     Range: {x: -70, y: 70}
     Wrap: 0
@@ -5021,6 +5021,11 @@ MonoBehaviour:
   baseSuccessAreaScale: 0.6
   useItemSuccessSFX: sfx_itemused
   useItemFailSFX: sfx_itemused
+  postProcessVolume: {fileID: 3609947034938591025}
+  flashDuration: 0.3
+  successFlashColor: {r: 0, g: 1, b: 0, a: 1}
+  failFlashColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  extraFlashIntensity: 0.4
 --- !u!1 &7091158559886428479
 GameObject:
   m_ObjectHideFlags: 0

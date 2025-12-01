@@ -1,11 +1,16 @@
 using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class EnergyPill : MonoBehaviour
 {
     [SerializeField] private ItemSO _itemSO;
     [SerializeField] private SurvivalStats playerSurvivalStats;
+
+
 
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private Transform startPoint;
@@ -20,6 +25,19 @@ public class EnergyPill : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private string useItemSuccessSFX = "sfx_itemused";
     [SerializeField] private string useItemFailSFX = "";
+
+    [Header("Screen Flash (Post Process)")]
+    [SerializeField] private Volume postProcessVolume;      
+    [SerializeField] private float flashDuration = 0.25f;
+    [SerializeField] private Color successFlashColor = Color.green;
+    [SerializeField] private Color failFlashColor = Color.yellow;
+    [SerializeField] private float extraFlashIntensity = 0.4f; 
+
+    private Vignette flashVignette;
+    private Color baseVignetteColor = Color.black;
+    private float baseVignetteIntensity;
+    private Coroutine flashRoutine;
+
 
     private float currentSuccessAreaScale;
     private float currentPointerSpeed;
@@ -37,6 +55,22 @@ public class EnergyPill : MonoBehaviour
         targetPosition = endPoint.position;
 
         isUsingItem = false;
+        if (postProcessVolume != null)
+        {
+            if (!postProcessVolume.profile.TryGet(out flashVignette))
+            {
+                Debug.LogWarning("EnergyPill: Vignette override not found on Volume profile. Add it to use edge flash.");
+            }
+            else
+            {
+                baseVignetteColor = flashVignette.color.value;
+                baseVignetteIntensity = flashVignette.intensity.value;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("EnergyPill: postProcessVolume not assigned on EnergyPill.");
+        }
     }
 
     void Update()
@@ -104,15 +138,17 @@ public class EnergyPill : MonoBehaviour
         {
             playerSurvivalStats.IncreaseBrainwave(-(_itemSO.amountToChangeStat));
             Debug.Log("Success");
-
             SoundManager.Instance.PlaySFX(useItemSuccessSFX);
+
+            FlashSuccess();
         }
         else
         {
             playerSurvivalStats.IncreaseBrainwave(+(_itemSO.amountToChangeStat * 1.5f));
             Debug.Log("Failed");
-
             SoundManager.Instance.PlaySFX(useItemFailSFX);
+
+            FlashFail();
         }
     }
 
@@ -139,6 +175,56 @@ public class EnergyPill : MonoBehaviour
 
         currentPointerSpeed = 5f * basePointerSpeed * (0.1f + (playerSurvivalStats.currentBrainwave / playerSurvivalStats.maxBrainwave));
         
+    }
+
+    private void FlashSuccess()
+    {
+        StartFlash(successFlashColor);
+    }
+
+    private void FlashFail()
+    {
+        StartFlash(failFlashColor);
+    }
+
+    private void StartFlash(Color color)
+    {
+        if (flashVignette == null)
+            return;
+
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+        }
+
+        flashRoutine = StartCoroutine(FlashRoutine(color));
+    }
+
+    private System.Collections.IEnumerator FlashRoutine(Color flashColor)
+    {
+        float t = 0f;
+
+        baseVignetteColor = flashVignette.color.value;
+        baseVignetteIntensity = flashVignette.intensity.value;
+
+        while (t < flashDuration)
+        {
+            float normalized = t / flashDuration;
+
+            float strength = 1f - Mathf.Abs(2f * normalized - 1f);
+
+            flashVignette.color.value = Color.Lerp(baseVignetteColor, flashColor, strength);
+
+            flashVignette.intensity.value =
+                baseVignetteIntensity + extraFlashIntensity * strength;
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        flashVignette.color.value = baseVignetteColor;
+        flashVignette.intensity.value = baseVignetteIntensity;
+        flashRoutine = null;
     }
 
 }
