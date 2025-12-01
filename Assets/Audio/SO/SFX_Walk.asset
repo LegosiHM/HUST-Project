@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: sfx_walk
   clip: {fileID: 8300000, guid: 8c2164c3166190d44a2b9ed3b1518585, type: 3}
-  volume: 1
+  volume: 0.1
   pitch: 1
   randomizePitch: 0
   randomPitchMin: 0.95
