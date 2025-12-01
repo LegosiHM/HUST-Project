@@ -38,14 +38,17 @@ public class DoorIO : MonoBehaviour, IInteractable
     {
         isOpen = true;
 
+        // Always play door sound
+        SoundManager.Instance.PlaySFX("sfx_kickdoor");
+
         if (doorAnimator != null)
         {
             doorAnimator.SetTrigger("Open");
         }
         else
         {
-            SoundManager.Instance.PlaySFX("sfx_kickdoor");
             transform.Rotate(0f, 90f, 0f);
         }
     }
+
 }
