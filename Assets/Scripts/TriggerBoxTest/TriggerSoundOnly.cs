@@ -10,15 +10,13 @@ public class TriggerSoundOnly : MonoBehaviour
     {
         if (other.GetComponent<PlayerContext>() != null)
         {
-            Debug.Log("Play Sound");
-            //put play sound script here
-            if (_isOneTime)
-            {
-                StartCoroutine(DestroyAfter(1));
-            }
-        }
+            GetComponent<TriggerSoundPlayer>()?.PlaySound();
 
+            if (_isOneTime)
+                StartCoroutine(DestroyAfter(1));
+        }
     }
+
 
 
     private IEnumerator DestroyAfter(float delay)

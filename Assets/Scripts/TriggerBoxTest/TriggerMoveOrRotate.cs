@@ -27,15 +27,15 @@ public class TriggerMoveOrRotate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<PlayerContext>() != null)
+        if (other.GetComponent<PlayerContext>() != null)
         {
-            //put play sound script here
+            GetComponent<TriggerSoundPlayer>()?.PlaySound();
 
             Rotate();
             Move();
         }
-
     }
+
 
 
     private void Rotate()

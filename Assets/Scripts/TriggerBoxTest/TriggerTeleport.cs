@@ -15,18 +15,15 @@ public class TriggerTeleport : MonoBehaviour
     {
         if (other.GetComponent<PlayerContext>() != null)
         {
-            //put play sound script here
+            GetComponent<TriggerSoundPlayer>()?.PlaySound();
 
             _linkedObject.position = _teleportDestination.position;
 
             if (_isOneTime)
-            {
-                DestroyAfter(1);
-               
-            }
+                StartCoroutine(DestroyAfter(1));
         }
-
     }
+
     private IEnumerator DestroyAfter(float delay)
     {
         yield return new WaitForSeconds(delay);
