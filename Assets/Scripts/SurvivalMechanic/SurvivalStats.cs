@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics.Tracing;
 using System.Security;
 using Unity.Mathematics;
-using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Random = UnityEngine.Random;
+
 
 public class SurvivalStats : MonoBehaviour
 {

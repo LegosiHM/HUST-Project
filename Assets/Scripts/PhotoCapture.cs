@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
-using UnityEditor.Rendering;
-using UnityEngine;
+using UnityEngine;                
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+
 
 public class PhotoCapture : MonoBehaviour
 {

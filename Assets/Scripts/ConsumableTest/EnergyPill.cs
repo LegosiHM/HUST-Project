@@ -2,8 +2,8 @@ using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+
 
 public class EnergyPill : MonoBehaviour
 {
