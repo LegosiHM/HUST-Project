@@ -63,6 +63,19 @@ public class WeaponControl : MonoBehaviour
                     playerSurvivalStats.DecreaseEnergy(playerSurvivalStats.primaryAttackEnergy);
                 }
             }
+            else if(!playerSurvivalStats.canUseEnergyAction && visibilityManager.isUnsheath)
+            {
+                if (Mouse.current.leftButton.wasPressedThisFrame) // Left mouse button down for new input system
+                {
+                    animator.SetTrigger("AnimPlay"); // Sets the trigger "AnimPlay" on the pistol animator
+                    audioSource1.clip = pistolShoot; // Sets the audio clip of audioSource1 to the pistol shot sound effect
+                    audioSource1.Play(); // Plays the clip
+
+                    playerSurvivalStats.DecreaseHP(playerSurvivalStats.primaryAttackEnergy);
+                }
+            }
+
+
             else if (!visibilityManager.isUnsheath)
             {
                 if (Mouse.current.leftButton.wasPressedThisFrame) // Left mouse button down for new input system
