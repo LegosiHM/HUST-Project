@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: sfx_punchweakpoint
   clip: {fileID: 8300000, guid: 2988407201f206244a36f99d022606b7, type: 3}
-  volume: 1
+  volume: 0.4
   pitch: 1
   randomizePitch: 1
   randomPitchMin: 0.95

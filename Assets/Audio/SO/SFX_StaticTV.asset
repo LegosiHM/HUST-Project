@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: sfx_statictv
   clip: {fileID: 8300000, guid: ef7b613ec7047c8409984102aaff7422, type: 3}
-  volume: 1
+  volume: 0.5
   pitch: 1
   randomizePitch: 0
   randomPitchMin: 0.95

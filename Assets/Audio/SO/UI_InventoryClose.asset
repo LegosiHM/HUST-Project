@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: ui_Inventoryclose
   clip: {fileID: 8300000, guid: b62411d04c0d87245b5fc7987b8ea4c0, type: 3}
-  volume: 1
+  volume: 0.05
   pitch: 1
   randomizePitch: 1
   randomPitchMin: 0.95

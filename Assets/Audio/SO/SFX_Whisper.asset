@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: sfx_whisper
   clip: {fileID: 8300000, guid: 08be2d59eaa5daf4d99a6ccec7261ef8, type: 3}
-  volume: 1
+  volume: 0.8
   pitch: 1
   randomizePitch: 0
   randomPitchMin: 0.95

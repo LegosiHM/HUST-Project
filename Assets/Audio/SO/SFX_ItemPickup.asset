@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: sfx_itempickup
   clip: {fileID: 8300000, guid: b9db0b77800e1ac4e84b56706614d59d, type: 3}
-  volume: 1
+  volume: 0.3
   pitch: 1
   randomizePitch: 1
   randomPitchMin: 0.95

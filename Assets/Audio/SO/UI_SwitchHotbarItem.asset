@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: ui_switchhotbaritem
   clip: {fileID: 8300000, guid: 2ca217afb2e697547ac09713ea032ad5, type: 3}
-  volume: 1
+  volume: 0.5
   pitch: 1
   randomizePitch: 1
   randomPitchMin: 0.95

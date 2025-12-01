@@ -2697,14 +2697,14 @@ MonoBehaviour:
   _baseBrainwaveChangeRate: 0.3
   _baseWaveDecreaseCooldownAfterGettingHit: 3
   whisperSfxId: sfx_whisper
-  whisperMinBrainwave: 10
+  whisperMinBrainwave: 36
   whisperMaxBrainwave: 100
-  whisperMinVolume: 0.02
-  whisperMaxVolume: 0.6
+  whisperMinVolume: 0.01
+  whisperMaxVolume: 0.4
   tiredSfxId: sfx_playertired
   tiredStartEnergy: 0
   tiredStopEnergy: 15
-  tiredVolume: 1
+  tiredVolume: 0.5
   _currentBrainwaveCooldown: 0
   _currentBrainwave: 0
   _brainWaveLevel: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: sfx_jumpscare
   clip: {fileID: 8300000, guid: 7f31c1a0890b6f94fa83fc7259e7f9cc, type: 3}
-  volume: 1
+  volume: 0.6
   pitch: 1
   randomizePitch: 0
   randomPitchMin: 0.95

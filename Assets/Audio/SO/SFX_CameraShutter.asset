@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: sfx_camerashutter
   clip: {fileID: 8300000, guid: 68c894bb69ddaa442a269f08e4c14232, type: 3}
-  volume: 1
+  volume: 0.3
   pitch: 1
   randomizePitch: 1
   randomPitchMin: 0.95

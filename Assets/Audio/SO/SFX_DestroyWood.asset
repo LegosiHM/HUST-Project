@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: sfx_destroywood
   clip: {fileID: 8300000, guid: e712123adc1d78d40ba15be7f7caa9f7, type: 3}
-  volume: 1
+  volume: 0.2
   pitch: 1
   randomizePitch: 1
   randomPitchMin: 0.95

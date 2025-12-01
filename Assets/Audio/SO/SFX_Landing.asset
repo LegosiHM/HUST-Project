@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: sfx_landing
   clip: {fileID: 8300000, guid: 2cb9439e6aa5bd84fabf872ac929aa87, type: 3}
-  volume: 1
+  volume: 0.2
   pitch: 1
   randomizePitch: 1
   randomPitchMin: 0.95

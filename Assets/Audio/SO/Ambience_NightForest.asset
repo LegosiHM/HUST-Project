@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: ambience_nightforest
   clip: {fileID: 8300000, guid: d68616a52ec836c4c8895b7d7783dc81, type: 3}
-  volume: 1
+  volume: 0.1
   pitch: 1
   randomizePitch: 0
   randomPitchMin: 0.95

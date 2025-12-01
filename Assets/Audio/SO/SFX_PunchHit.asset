@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioEvent
   id: sfx_punchhit
   clip: {fileID: 8300000, guid: e62939a5891c8f24780d8224a5bbea8c, type: 3}
-  volume: 1
+  volume: 0.45
   pitch: 1
   randomizePitch: 1
-  randomPitchMin: 0.95
-  randomPitchMax: 1.05
+  randomPitchMin: 0.8
+  randomPitchMax: 1.2
