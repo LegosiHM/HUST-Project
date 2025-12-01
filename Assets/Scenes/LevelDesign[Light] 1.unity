@@ -11511,6 +11511,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2193175488911368089, guid: 621b3b7e0cf6512429c2f050b3f8f031, type: 3}
   m_PrefabInstance: {fileID: 483879003}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &486070346 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3370367316322980589, guid: fde54769aa537ba49bc25cf33cdb8cf7, type: 3}
+  m_PrefabInstance: {fileID: 1646610474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &486070359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486070346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e2ebfbc2f9ba05468f8a697c9c0058f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FootstepSFX
+  walkSfxId: sfx_walk
+  walkInterval: 0.5
+  minMoveSpeed: 0.2
 --- !u!1 &486844574
 GameObject:
   m_ObjectHideFlags: 0
@@ -41784,7 +41804,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3370367316322980589, guid: fde54769aa537ba49bc25cf33cdb8cf7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 486070359}
   m_SourcePrefab: {fileID: 100100000, guid: fde54769aa537ba49bc25cf33cdb8cf7, type: 3}
 --- !u!95 &1646610475 stripped
 Animator:
