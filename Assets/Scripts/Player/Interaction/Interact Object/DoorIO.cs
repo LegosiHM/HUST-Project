@@ -44,6 +44,7 @@ public class DoorIO : MonoBehaviour, IInteractable
         }
         else
         {
+            SoundManager.Instance.PlaySFX("sfx_kickdoor");
             transform.Rotate(0f, 90f, 0f);
         }
     }
