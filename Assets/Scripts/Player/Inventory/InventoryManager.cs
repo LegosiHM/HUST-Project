@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+﻿using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +10,10 @@ public class InventoryManager : MonoBehaviour
     public ItemSlot[] itemSlot;
 
     public ItemSO[] itemSOs;
+
+    [Header("Audio")]
+    [SerializeField] private string inventoryOpenSFX = "ui_inventoryopen";
+    [SerializeField] private string inventoryCloseSFX = "ui_Inventoryclose";
 
 
     void Update()
@@ -23,18 +27,23 @@ public class InventoryManager : MonoBehaviour
             menuActive = !menuActive;
             inventoryMenu.SetActive(menuActive);
 
-            // Cursor control and input lock
             if (menuActive)
             {
+                // 🔊 Inventory Open SFX
+                SoundManager.Instance.PlaySFX(inventoryOpenSFX);
+
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                Time.timeScale = 0f; // optional pause
+                Time.timeScale = 0f;
             }
             else
             {
+                // 🔊 Inventory Close SFX
+                SoundManager.Instance.PlaySFX(inventoryCloseSFX);
+
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                Time.timeScale = 1f; // resume game
+                Time.timeScale = 1f;
             }
         }
     }

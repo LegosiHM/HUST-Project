@@ -16,6 +16,11 @@ public class EnergyPill : MonoBehaviour
     [SerializeField] private WeaponControl weaponControl;
 
     [SerializeField] private float baseSuccessAreaScale = 0.5f;
+
+    [Header("Audio")]
+    [SerializeField] private string useItemSuccessSFX = "sfx_itemused";
+    [SerializeField] private string useItemFailSFX = "";
+
     private float currentSuccessAreaScale;
     private float currentPointerSpeed;
 
@@ -97,11 +102,15 @@ public class EnergyPill : MonoBehaviour
         {
             playerSurvivalStats.IncreaseBrainwave(-(_itemSO.amountToChangeStat));
             Debug.Log("Success");
+
+            SoundManager.Instance.PlaySFX(useItemSuccessSFX);
         }
         else
         {
             playerSurvivalStats.IncreaseBrainwave(+(_itemSO.amountToChangeStat * 1.5f));
             Debug.Log("Failed");
+
+            SoundManager.Instance.PlaySFX(useItemFailSFX);
         }
     }
 
