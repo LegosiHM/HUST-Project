@@ -30,6 +30,7 @@ public class EnemyStats : MonoBehaviour
 
     public void Dead()
     {
+        SoundManager.Instance.PlaySFX("sfx_destroywood");
         Instantiate(deathEffect,transform.position, transform.rotation);
         Destroy(gameObject);
     }
