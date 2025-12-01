@@ -115,6 +115,11 @@ public class SoundManager : MonoBehaviour
         PlayOneShot(id, sfxSource);
     }
 
+    public AudioSource GetSFXSource()
+    {
+        return sfxSource;
+    }
+
     public void PlayUI(string id)
     {
         PlayOneShot(id, uiSource);
