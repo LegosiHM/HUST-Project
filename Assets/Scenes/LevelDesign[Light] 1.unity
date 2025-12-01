@@ -571,6 +571,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2193175488911368089, guid: 621b3b7e0cf6512429c2f050b3f8f031, type: 3}
   m_PrefabInstance: {fileID: 23431711}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &24757093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 24757095}
+  - component: {fileID: 24757094}
+  m_Layer: 0
+  m_Name: ForestSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &24757094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24757093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 521d8a080969ec745be04f060b55cc9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ForestAmbienceStarter
+  ambienceId: ambience_nightforest
+--- !u!4 &24757095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24757093}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.7454, y: 1.16, z: 36.5904}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &26487840
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,6 +850,26 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae7b8255185ace64ca379cb1ca3b24e6, type: 3}
+--- !u!1 &32609196 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3370367316322980589, guid: fde54769aa537ba49bc25cf33cdb8cf7, type: 3}
+  m_PrefabInstance: {fileID: 1646610474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &32609210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32609196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e2ebfbc2f9ba05468f8a697c9c0058f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FootstepSFX
+  walkSfxId: sfx_walk
+  walkInterval: 0.5
+  minMoveSpeed: 0.2
 --- !u!1001 &35037581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15162,6 +15227,7 @@ GameObject:
   - component: {fileID: 626976835}
   - component: {fileID: 626976837}
   - component: {fileID: 626976836}
+  - component: {fileID: 626976838}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -15200,7 +15266,7 @@ MonoBehaviour:
   _movedBy: {x: 0, y: 0, z: 0}
   _moveSpeed: 2
   _rotateBy: {x: 0, y: 45, z: 90}
-  _rotateSpeed: 1
+  _rotateSpeed: 0.18
   _sound: 
   _isOneTime: 1
 --- !u!65 &626976837
@@ -15224,6 +15290,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &626976838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626976834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b7a23f34724264995899df77533e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerSoundPlayer
+  audioEvent: {fileID: 11400000, guid: 65cb2f3a9c9719d4987b3ace460fea05, type: 2}
 --- !u!1001 &627015410
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16188,6 +16267,7 @@ GameObject:
   - component: {fileID: 650271712}
   - component: {fileID: 650271714}
   - component: {fileID: 650271713}
+  - component: {fileID: 650271715}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -16226,7 +16306,7 @@ MonoBehaviour:
   _movedBy: {x: 0, y: 0, z: 0}
   _moveSpeed: 2
   _rotateBy: {x: 0, y: 0, z: -90}
-  _rotateSpeed: 0.8
+  _rotateSpeed: 0.18
   _sound: 
   _isOneTime: 1
 --- !u!65 &650271714
@@ -16250,6 +16330,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &650271715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650271711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b7a23f34724264995899df77533e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerSoundPlayer
+  audioEvent: {fileID: 11400000, guid: 65cb2f3a9c9719d4987b3ace460fea05, type: 2}
 --- !u!1001 &650604553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20420,6 +20513,7 @@ GameObject:
   - component: {fileID: 815037390}
   - component: {fileID: 815037389}
   - component: {fileID: 815037388}
+  - component: {fileID: 815037391}
   m_Layer: 0
   m_Name: Triggerbox
   m_TagString: Untagged
@@ -20498,6 +20592,19 @@ MonoBehaviour:
   _rotateSpeed: 2
   _sound: 
   _isOneTime: 1
+--- !u!114 &815037391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815037386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b7a23f34724264995899df77533e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerSoundPlayer
+  audioEvent: {fileID: 11400000, guid: 7f72c01360eb41e409cd5990ebf1f4b9, type: 2}
 --- !u!1001 &817931761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24946,6 +25053,7 @@ GameObject:
   - component: {fileID: 998513168}
   - component: {fileID: 998513170}
   - component: {fileID: 998513169}
+  - component: {fileID: 998513171}
   m_Layer: 0
   m_Name: Triggerbox
   m_TagString: Untagged
@@ -25005,9 +25113,22 @@ MonoBehaviour:
   _movedBy: {x: 0, y: 0, z: 0}
   _moveSpeed: 0
   _rotateBy: {x: 0, y: 45, z: 90}
-  _rotateSpeed: 2
+  _rotateSpeed: 0.18
   _sound: 
   _isOneTime: 1
+--- !u!114 &998513171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998513167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b7a23f34724264995899df77533e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerSoundPlayer
+  audioEvent: {fileID: 11400000, guid: 65cb2f3a9c9719d4987b3ace460fea05, type: 2}
 --- !u!4 &999595593 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 489384, guid: 1ac8b9099f0c47e41a84ef1f2e41988c, type: 3}
@@ -34125,6 +34246,7 @@ GameObject:
   - component: {fileID: 1353118810}
   - component: {fileID: 1353118809}
   - component: {fileID: 1353118808}
+  - component: {fileID: 1353118814}
   m_Layer: 0
   m_Name: Triggerbox
   m_TagString: Untagged
@@ -34255,6 +34377,19 @@ MonoBehaviour:
   _rotateSpeed: 2
   _sound: 
   _isOneTime: 1
+--- !u!114 &1353118814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353118806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b7a23f34724264995899df77533e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerSoundPlayer
+  audioEvent: {fileID: 11400000, guid: 7f72c01360eb41e409cd5990ebf1f4b9, type: 2}
 --- !u!4 &1355351077 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 489384, guid: 1ac8b9099f0c47e41a84ef1f2e41988c, type: 3}
@@ -34967,6 +35102,7 @@ GameObject:
   - component: {fileID: 1376994296}
   - component: {fileID: 1376994298}
   - component: {fileID: 1376994297}
+  - component: {fileID: 1376994299}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -35003,9 +35139,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TriggerMoveOrRotate
   _linkedObject: {fileID: 804290607}
   _movedBy: {x: 0, y: 0, z: 0}
-  _moveSpeed: 2
+  _moveSpeed: 0.18
   _rotateBy: {x: 0, y: -45, z: -90}
-  _rotateSpeed: 1.5
+  _rotateSpeed: 0.18
   _sound: 
   _isOneTime: 1
 --- !u!65 &1376994298
@@ -35029,6 +35165,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1376994299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376994295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b7a23f34724264995899df77533e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerSoundPlayer
+  audioEvent: {fileID: 11400000, guid: 65cb2f3a9c9719d4987b3ace460fea05, type: 2}
 --- !u!4 &1377456121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 439608, guid: f2ca19289c480c447ba0542e93b13da1, type: 3}
@@ -41616,7 +41765,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3370367316322980589, guid: fde54769aa537ba49bc25cf33cdb8cf7, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 32609210}
   m_SourcePrefab: {fileID: 100100000, guid: fde54769aa537ba49bc25cf33cdb8cf7, type: 3}
 --- !u!95 &1646610475 stripped
 Animator:
@@ -48628,6 +48780,7 @@ GameObject:
   - component: {fileID: 1949729395}
   - component: {fileID: 1949729394}
   - component: {fileID: 1949729393}
+  - component: {fileID: 1949729396}
   m_Layer: 0
   m_Name: Triggerbox
   m_TagString: Untagged
@@ -48758,6 +48911,19 @@ MonoBehaviour:
   _teleportDestination: {fileID: 258785392}
   _isOneTime: 1
   _sound: 
+--- !u!114 &1949729396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949729388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b7a23f34724264995899df77533e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerSoundPlayer
+  audioEvent: {fileID: 11400000, guid: 7f72c01360eb41e409cd5990ebf1f4b9, type: 2}
 --- !u!4 &1954373017 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 489384, guid: 1ac8b9099f0c47e41a84ef1f2e41988c, type: 3}
@@ -53023,3 +53189,4 @@ SceneRoots:
   - {fileID: 661745257}
   - {fileID: 1646610474}
   - {fileID: 911532405}
+  - {fileID: 24757095}

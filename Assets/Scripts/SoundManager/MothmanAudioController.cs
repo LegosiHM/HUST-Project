@@ -72,10 +72,11 @@ public class MothmanAudioController : MonoBehaviour
         if (jumpscareTriggered) return;
         jumpscareTriggered = true;
 
+        currentVolume = maxStaticVolume;
+
         if (SoundManager.Instance != null)
         {
-            // Play jumpscare one-shot on top of current static
-            SoundManager.Instance.PlaySFX(jumpscareSfxId);
+            SoundManager.Instance.PlayContinuous(staticSfxId, currentVolume);
         }
 
         if (fadeOutRoutine != null)
@@ -83,6 +84,7 @@ public class MothmanAudioController : MonoBehaviour
 
         fadeOutRoutine = StartCoroutine(FadeOutStatic());
     }
+
 
     private IEnumerator FadeOutStatic()
     {
