@@ -10,6 +10,9 @@ public class Item : MonoBehaviour, IInteractable
     [SerializeField] private string itemDescription;
 
     private InventoryManager inventoryManager;
+    [Header("Audio")]
+    [SerializeField] private string pickupSfxId = "sfx_itempickup";
+
 
     void Start()
     {
@@ -39,6 +42,11 @@ public class Item : MonoBehaviour, IInteractable
         }
 
         int leftOverItems = inventoryManager.AddItem(itemName, quantity, sprite, itemDescription);
+
+        if (leftOverItems < quantity)
+        {
+            SoundManager.Instance.PlaySFX(pickupSfxId);
+        }
 
         if (leftOverItems <= 0)
         {

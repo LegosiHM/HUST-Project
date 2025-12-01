@@ -13,6 +13,8 @@ public class WeaponControl : MonoBehaviour
     [SerializeField] private AudioSource audioSource1; // Audiosource component
     [SerializeField] private AudioClip pistolShoot; // Pistol shot audio clip
 
+    [SerializeField] private string hotbarSwitchSFX = "ui_switchhotbaritem";
+
     [SerializeField] private List<AnimationClip> testItemHotbarAnimation;
     private AnimationClip currentItemAnimation;
 
@@ -96,8 +98,10 @@ public class WeaponControl : MonoBehaviour
     {
         if (allowSwap)
         {
+
             if (Mouse.current.scroll.y.ReadValue() > 0)
             {
+                SoundManager.Instance.PlaySFX(hotbarSwitchSFX);
                 itemIndex++;
                 visualIndex++;
 
