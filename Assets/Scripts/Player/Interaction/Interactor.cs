@@ -15,6 +15,7 @@ public class Interactor : MonoBehaviour
     public InventoryManager inventoryManager;              
 
     private IInteractable currentInteractable;
+    private IInteractable prevInteractable;
     private bool lookingAtItem;
 
     private void Awake()
@@ -48,9 +49,34 @@ public class Interactor : MonoBehaviour
             if (hitInfo.collider.TryGetComponent<IInteractable>(out var interactObj))
             {
                 currentInteractable = interactObj;
+
+                if(prevInteractable != currentInteractable)
+                {
+                    prevInteractable?.ChangeMaterialToNormal();
+
+                    currentInteractable.ChangeMaterialToInteractable();
+
+                    prevInteractable = currentInteractable;
+
+                }
+
                 // If this interactable is an Item, we use the pickup UI
                 if (interactObj is Item)
+                {
                     lookingAtItem = true;
+                }
+            }
+            else
+            {
+                if (prevInteractable != null)
+                {
+                    prevInteractable.ChangeMaterialToNormal();
+                    prevInteractable = null;
+                }
+
+                currentInteractable = null;
+                lookingAtItem = false;
+
             }
         }
 
@@ -67,7 +93,9 @@ public class Interactor : MonoBehaviour
     private void HandleInteractInput()
     {
         if (currentInteractable == null)
+        {
             return;
+        }
 
         if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {

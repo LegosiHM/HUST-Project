@@ -7,6 +7,11 @@ public class DoorIO : MonoBehaviour, IInteractable
     [SerializeField] private bool requiresItem = true;
     [SerializeField] private Animator doorAnimator;
 
+    [Header("Material")]
+    [SerializeField] private Material baseMaterial;
+    [SerializeField] private Material interactableMaterial;
+    private SpriteRenderer spriteRenderer;
+
     private bool isOpen = false;
 
     public void Interact(Interactor interactor)
@@ -51,4 +56,13 @@ public class DoorIO : MonoBehaviour, IInteractable
         }
     }
 
+    public void ChangeMaterialToInteractable()
+    {
+        spriteRenderer.material = interactableMaterial;
+    }
+
+    public void ChangeMaterialToNormal()
+    {
+        spriteRenderer.material = baseMaterial;
+    }
 }

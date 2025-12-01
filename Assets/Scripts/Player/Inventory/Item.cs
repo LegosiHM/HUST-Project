@@ -13,10 +13,15 @@ public class Item : MonoBehaviour, IInteractable
     [Header("Audio")]
     [SerializeField] private string pickupSfxId = "sfx_itempickup";
 
+    [Header("Material")]
+    [SerializeField] private Material baseMaterial;
+    [SerializeField] private Material interactableMaterial;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         inventoryManager = GameObject.FindAnyObjectByType<InventoryManager>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Used when spawning items from other scripts if you need it
@@ -26,6 +31,11 @@ public class Item : MonoBehaviour, IInteractable
         this.quantity = quantity;
         this.sprite = sprite;
         this.itemDescription = itemDescription;
+    }
+
+    private void Update()
+    {
+        //ChangeMaterialToNormal();
     }
 
     // NEW: interact pickup (no more walk-to-pickup)
@@ -71,4 +81,16 @@ public class Item : MonoBehaviour, IInteractable
         }
     }
     */
+
+    public void ChangeMaterialToInteractable()
+    {
+        if (spriteRenderer == null) return;
+        spriteRenderer.material = interactableMaterial;
+    }
+
+    public void ChangeMaterialToNormal()
+    {
+        if (spriteRenderer == null) return;
+        spriteRenderer.material = baseMaterial;
+    }
 }
