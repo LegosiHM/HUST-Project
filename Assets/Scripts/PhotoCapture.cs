@@ -109,6 +109,7 @@ public class PhotoCapture : MonoBehaviour
         {
             if (!viewingPhoto)
             {
+                filmFrameUI.SetActive(false);
                 playerSurvivalStats.IncreaseBrainwave(brainwaveIncreaseUponTakingPicture);
                 StartCoroutine(CapturePhoto());
             }
@@ -178,6 +179,7 @@ public class PhotoCapture : MonoBehaviour
 
         yield return new WaitForSeconds(showPhotoDuration);
         photoFrame.SetActive(false);
+        filmFrameUI.SetActive(true);
     }
 
     void ShowPhoto(Texture2D photoTexture)
