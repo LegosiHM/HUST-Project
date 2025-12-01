@@ -15,6 +15,12 @@ public class PhotoCapture : MonoBehaviour
     [SerializeField] private FilmRollUI filmRollUI;
     //[SerializeField] private GameObject cameraUI;
     [SerializeField] private float showPhotoDuration = 0.75f;
+    [SerializeField] private GameObject handUI;
+    [SerializeField] private GameObject filmFrameUI;
+    [SerializeField] private GameObject statusUI;
+    [SerializeField] private WeaponControl weaponControl;
+    private bool aimCamera = false;
+    public bool _aimCamera => aimCamera;
 
     [Header("SFX")]
     [SerializeField] private string shutterSfxId = "sfx_camerashutter";
@@ -89,7 +95,15 @@ public class PhotoCapture : MonoBehaviour
 
     private void Update()
     {
-        if (Mouse.current.rightButton.wasPressedThisFrame)
+        if (weaponControl._allowSwap == false && Mouse.current.rightButton.wasPressedThisFrame) //for prototype only
+        {
+            TakePicture();
+        }
+    }
+
+    public void TakePicture()
+    {
+        if(aimCamera == true)
         {
             if (!viewingPhoto)
             {
@@ -99,6 +113,26 @@ public class PhotoCapture : MonoBehaviour
             {
                 RemovePhoto();
             }
+        }
+    }
+
+    public void AimCamera()
+    {
+        if (aimCamera == false)
+        {
+            handUI.GetComponent<Image>().enabled = false;
+            filmFrameUI.SetActive(true);
+            statusUI.SetActive(false);
+            aimCamera = true;
+            weaponControl.ChangeAllowSwap(false);
+        }
+        else
+        {
+            handUI.GetComponent<Image>().enabled = true;
+            filmFrameUI.SetActive(false);
+            statusUI.SetActive(true);
+            aimCamera = false;
+            weaponControl.ChangeAllowSwap(true);
         }
     }
 

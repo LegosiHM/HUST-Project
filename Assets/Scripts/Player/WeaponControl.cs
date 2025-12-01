@@ -18,9 +18,13 @@ public class WeaponControl : MonoBehaviour
 
     private AnimatorOverrideController overrideController;
 
-
+    private bool allowSwap = true;
+    public bool _allowSwap => allowSwap;
     private int itemIndex = 0;
     private int visualIndex = 1;
+
+    private bool usingQuacker = false;
+    public bool _usingQuacker => usingQuacker;
 
     private SurvivalStats playerSurvivalStats;
     private UIVisibilityManager visibilityManager;
@@ -54,7 +58,7 @@ public class WeaponControl : MonoBehaviour
                     audioSource1.clip = pistolShoot; // Sets the audio clip of audioSource1 to the pistol shot sound effect
                     audioSource1.Play(); // Plays the clip
 
-                    //playerSurvivalStats.DecreaseEnergy(playerSurvivalStats.primaryAttackEnergy);
+                    playerSurvivalStats.DecreaseEnergy(playerSurvivalStats.primaryAttackEnergy);
                 }
             }
             else if (!visibilityManager.isUnsheath)
@@ -77,41 +81,58 @@ public class WeaponControl : MonoBehaviour
 
         SwapItem();
 
+        //hard code - not meant for final product
+        if(currentItemAnimation.name == "TestItem_QuackerAnim")
+        {
+            usingQuacker = true;
+        }
+        else
+        {
+            usingQuacker = false;
+        }
     }
 
     private void SwapItem()
     {
-        if (Mouse.current.scroll.y.ReadValue() > 0)
+        if (allowSwap)
         {
-            itemIndex++;
-            visualIndex++;
-            
-            if (itemIndex > testItemHotbarAnimation.Count-1)
+            if (Mouse.current.scroll.y.ReadValue() > 0)
             {
-                itemIndex = 0;
-            }
-            if (visualIndex > testItemHotbarAnimation.Count - 1)
-            {
-                visualIndex = 0;
-            }
+                itemIndex++;
+                visualIndex++;
 
-            currentItemAnimation = testItemHotbarAnimation[itemIndex];
-            overrideController["DefaultAttack"] = currentItemAnimation;
+                if (itemIndex > testItemHotbarAnimation.Count - 1)
+                {
+                    itemIndex = 0;
+                }
+                if (visualIndex > testItemHotbarAnimation.Count - 1)
+                {
+                    visualIndex = 0;
+                }
+
+                currentItemAnimation = testItemHotbarAnimation[itemIndex];
+                overrideController["DefaultAttack"] = currentItemAnimation;
+            }
+            /*
+             if (Mouse.current.scroll.y.ReadValue() < 0)
+            {
+                itemIndex--;
+
+                if (itemIndex < 0)
+                {
+                    itemIndex = testItemHotbarAnimation.Count - 1;
+                }
+
+                currentItemAnimation = testItemHotbarAnimation[itemIndex];
+                overrideController["DefaultAttack"] = currentItemAnimation;
+            }*/
         }
-        /*
-         if (Mouse.current.scroll.y.ReadValue() < 0)
-        {
-            itemIndex--;
 
-            if (itemIndex < 0)
-            {
-                itemIndex = testItemHotbarAnimation.Count - 1;
-            }
+    }
 
-            currentItemAnimation = testItemHotbarAnimation[itemIndex];
-            overrideController["DefaultAttack"] = currentItemAnimation;
-        }*/
-        
+    public void ChangeAllowSwap(bool result)
+    {
+        allowSwap = result;
     }
 }
 

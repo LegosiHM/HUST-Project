@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed96eed4bf32a04e8beed8b1056e4b2, type: 3}
   m_Name: EnergyPill
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  itemName: EnergyPill
-  statToChange: 3
-  amountToChangeStat: 50
+  itemName: Quacker
+  statToChange: 2
+  amountToChangeStat: 2
   attributesToChange: 0
   amountToChangeAttribute: 0
+  useItemSfxId: sfx_itemused
