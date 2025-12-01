@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class EnergyPill : MonoBehaviour
 {
     [SerializeField] private ItemSO _itemSO;
-    private SurvivalStats playerSurvivalStats;
+    [SerializeField] private SurvivalStats playerSurvivalStats;
 
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private Transform startPoint;
@@ -13,6 +13,7 @@ public class EnergyPill : MonoBehaviour
     [SerializeField] private RectTransform successZone;
     [SerializeField] private RectTransform pointer;
     [SerializeField] private float basePointerSpeed = 200f;
+    [SerializeField] private WeaponControl weaponControl;
 
     [SerializeField] private float baseSuccessAreaScale = 0.5f;
     private float currentSuccessAreaScale;
@@ -25,7 +26,6 @@ public class EnergyPill : MonoBehaviour
 
     void Start()
     {
-        playerSurvivalStats = GetComponent<SurvivalStats>(); //for test only
         currentPointerSpeed = basePointerSpeed;
         currentSuccessAreaScale = baseSuccessAreaScale;
 
@@ -36,6 +36,20 @@ public class EnergyPill : MonoBehaviour
 
     void Update()
     {
+        isUsingItem = weaponControl._usingQuacker;
+
+
+        if (isUsingItem)
+        {
+            AdjustScaleAndSpeedByBrainwave();
+            ShowUI();
+            ControlPointerPosition();
+        }
+        else
+        {
+            HideUI();
+        }
+        /*
         if (Keyboard.current.kKey.wasPressedThisFrame) // for test only
         {
             isUsingItem = !isUsingItem;
@@ -51,6 +65,7 @@ public class EnergyPill : MonoBehaviour
         {
             HideUI();
         }
+        */
     }
 
     private void ControlPointerPosition()
@@ -68,21 +83,24 @@ public class EnergyPill : MonoBehaviour
             direction = -1f;
         }
 
+        /*
         if (Keyboard.current.zKey.wasPressedThisFrame) // for test only
         {
             CheckSuccess();
         }
+        */
     }
 
     private void CheckSuccess()
     {
         if(RectTransformUtility.RectangleContainsScreenPoint(successZone, pointer.position, null))
         {
-            playerSurvivalStats.IncreaseEnergy(_itemSO.amountToChangeStat);
+            playerSurvivalStats.IncreaseBrainwave(-(_itemSO.amountToChangeStat));
             Debug.Log("Success");
         }
         else
         {
+            playerSurvivalStats.IncreaseBrainwave(+(_itemSO.amountToChangeStat * 1.5f));
             Debug.Log("Failed");
         }
     }
@@ -100,14 +118,17 @@ public class EnergyPill : MonoBehaviour
 
     private void AdjustScaleAndSpeedByBrainwave()
     {
+        
         Vector3 successZoneScale = successZone.localScale;
 
-        currentSuccessAreaScale = 1 - playerSurvivalStats.currentBrainwave / playerSurvivalStats.maxBrainwave;
+        currentSuccessAreaScale = 1.1f - playerSurvivalStats.currentBrainwave / playerSurvivalStats.maxBrainwave;
+        currentSuccessAreaScale = Mathf.Clamp(currentSuccessAreaScale, 0f, 0.6f);
 
         successZoneScale.x = currentSuccessAreaScale;
         successZone.localScale = successZoneScale;
 
         currentPointerSpeed = 5f * basePointerSpeed * playerSurvivalStats.currentBrainwave / playerSurvivalStats.maxBrainwave;
+        
     }
 
 }

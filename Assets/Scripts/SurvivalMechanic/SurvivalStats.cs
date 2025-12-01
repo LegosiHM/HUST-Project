@@ -175,6 +175,7 @@ public class SurvivalStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Keyboard.current.qKey.wasPressedThisFrame) // test only - decrease Brainwave
         {
             IncreaseBrainwave(-3f);
@@ -199,6 +200,7 @@ public class SurvivalStats : MonoBehaviour
         {
             DecreaseEnergy(-5f);
         }
+        */
         CheckIfHaveEnergyLeft();
 
         CheckBrainwaveLevel();
