@@ -15,6 +15,9 @@ public class EnergyPill : MonoBehaviour
     [SerializeField] private float basePointerSpeed = 200f;
     [SerializeField] private WeaponControl weaponControl;
 
+    [SerializeField] private ScreenFlash screenFlash;
+
+
     [SerializeField] private float baseSuccessAreaScale = 0.5f;
 
     [Header("Audio")]
@@ -106,6 +109,11 @@ public class EnergyPill : MonoBehaviour
             Debug.Log("Success");
 
             SoundManager.Instance.PlaySFX(useItemSuccessSFX);
+
+            if (screenFlash != null)
+            {
+                screenFlash.FlashSuccess();
+            }
         }
         else
         {
@@ -113,6 +121,11 @@ public class EnergyPill : MonoBehaviour
             Debug.Log("Failed");
 
             SoundManager.Instance.PlaySFX(useItemFailSFX);
+
+            if (screenFlash != null)
+            {
+                screenFlash.FlashFail();
+            }
         }
     }
 
