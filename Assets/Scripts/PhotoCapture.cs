@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class PhotoCapture : MonoBehaviour
 {
+    [SerializeField] private SurvivalStats playerSurvivalStats;
+    [SerializeField] private float brainwaveIncreaseUponTakingPicture = 5f;
     [Header("Photo Taker")]
     [SerializeField] private Image photoDisplayArea;
     [SerializeField] private GameObject photoFrame;
@@ -107,6 +109,7 @@ public class PhotoCapture : MonoBehaviour
         {
             if (!viewingPhoto)
             {
+                playerSurvivalStats.IncreaseBrainwave(brainwaveIncreaseUponTakingPicture);
                 StartCoroutine(CapturePhoto());
             }
             else

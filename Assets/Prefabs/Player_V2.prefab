@@ -292,6 +292,8 @@ MonoBehaviour:
   - {fileID: 289641945127754477}
   - {fileID: 2509017577806147323}
   itemSOs: []
+  inventoryOpenSFX: ui_inventoryopen
+  inventoryCloseSFX: ui_Inventoryclose
 --- !u!1 &309589901682010241
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,7 +1623,7 @@ MonoBehaviour:
   ReferenceFrame: 0
   RecenterTarget: 0
   PanAxis:
-    Value: 32.876446
+    Value: 16.372782
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -1631,7 +1633,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   TiltAxis:
-    Value: -70
+    Value: -67.80002
     Center: 0
     Range: {x: -70, y: 70}
     Wrap: 0
@@ -2454,6 +2456,7 @@ MonoBehaviour:
   animator: {fileID: 2280614387173688553}
   audioSource1: {fileID: 2529400408674323158}
   pistolShoot: {fileID: 0}
+  hotbarSwitchSFX: ui_switchhotbaritem
   testItemHotbarAnimation:
   - {fileID: 7400000, guid: 28f12d645a371a541b524321a37cc987, type: 2}
   - {fileID: 7400000, guid: cec03c7609e38e441976a23ca93709d4, type: 2}
@@ -4767,6 +4770,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc1a26d1b8cbf4e459271b773ea43de8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhotoCapture
+  playerSurvivalStats: {fileID: 9029630302858269166}
+  brainwaveIncreaseUponTakingPicture: 5
   photoDisplayArea: {fileID: 5269154256316402083}
   photoFrame: {fileID: 3998656987077749067}
   filmRollUI: {fileID: 491490881457713552}
@@ -4935,9 +4940,11 @@ MonoBehaviour:
   endPoint: {fileID: 3120249410341898101}
   successZone: {fileID: 7025334395192593517}
   pointer: {fileID: 1418258755411104666}
-  basePointerSpeed: 200
+  basePointerSpeed: 100
   weaponControl: {fileID: 1210344267333014932}
-  baseSuccessAreaScale: 0.3
+  baseSuccessAreaScale: 0.6
+  useItemSuccessSFX: sfx_itemused
+  useItemFailSFX: sfx_itemused
 --- !u!1 &7091158559886428479
 GameObject:
   m_ObjectHideFlags: 0

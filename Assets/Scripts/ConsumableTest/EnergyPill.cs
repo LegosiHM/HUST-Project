@@ -98,7 +98,9 @@ public class EnergyPill : MonoBehaviour
 
     private void CheckSuccess()
     {
-        if(RectTransformUtility.RectangleContainsScreenPoint(successZone, pointer.position, null))
+        playerSurvivalStats.DecreaseEnergy(playerSurvivalStats.primaryAttackEnergy * 3f);
+
+        if (RectTransformUtility.RectangleContainsScreenPoint(successZone, pointer.position, null))
         {
             playerSurvivalStats.IncreaseBrainwave(-(_itemSO.amountToChangeStat));
             Debug.Log("Success");
@@ -127,16 +129,15 @@ public class EnergyPill : MonoBehaviour
 
     private void AdjustScaleAndSpeedByBrainwave()
     {
-        
         Vector3 successZoneScale = successZone.localScale;
 
-        currentSuccessAreaScale = 1.1f - playerSurvivalStats.currentBrainwave / playerSurvivalStats.maxBrainwave;
-        currentSuccessAreaScale = Mathf.Clamp(currentSuccessAreaScale, 0f, 0.6f);
+        currentSuccessAreaScale = 1.2f - playerSurvivalStats.currentBrainwave / playerSurvivalStats.maxBrainwave;
+        currentSuccessAreaScale = Mathf.Clamp(currentSuccessAreaScale, 0f, 0.7f);
 
         successZoneScale.x = currentSuccessAreaScale;
         successZone.localScale = successZoneScale;
 
-        currentPointerSpeed = 5f * basePointerSpeed * playerSurvivalStats.currentBrainwave / playerSurvivalStats.maxBrainwave;
+        currentPointerSpeed = 5f * basePointerSpeed * (0.1f + (playerSurvivalStats.currentBrainwave / playerSurvivalStats.maxBrainwave));
         
     }
 
