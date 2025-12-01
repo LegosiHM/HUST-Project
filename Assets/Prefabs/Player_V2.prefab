@@ -2479,10 +2479,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3628beea337e7184988975337f4fe862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  walkSpeed: 0.7
+  walkSpeed: 0.8
   sprintMultiplier: 1.5
-  crouchMoveSpeed: 0.3
-  standHeight: 1
+  crouchMoveSpeed: 0.4
+  standHeight: 1.5
   crouchHeight: 0.6
   heightChangeSpeed: 5
   controllerCenterStand: {x: 0, y: 0.9, z: 0}
