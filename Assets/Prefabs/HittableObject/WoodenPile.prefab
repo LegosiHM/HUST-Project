@@ -664,6 +664,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   maxHP: 3
   deathEffect: {fileID: 4131806107084036167, guid: 66f45a15be8d289438b38690f7b6e087, type: 3}
+  dropItems:
+  - {fileID: 2655135351471577915, guid: 30277986b77125a408f46029b96c5a6e, type: 3}
+  - {fileID: 2655135351471577915, guid: 30277986b77125a408f46029b96c5a6e, type: 3}
+  - {fileID: 2655135351471577915, guid: 30277986b77125a408f46029b96c5a6e, type: 3}
 --- !u!1 &8477105019736532425
 GameObject:
   m_ObjectHideFlags: 0

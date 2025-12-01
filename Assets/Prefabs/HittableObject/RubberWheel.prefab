@@ -644,8 +644,8 @@ MonoBehaviour:
   deathEffect: {fileID: 4131806107084036167, guid: 66f45a15be8d289438b38690f7b6e087, type: 3}
   dropItems:
   - {fileID: 2655135351471577915, guid: ac0de6de013c71c4dae2eb30568631a3, type: 3}
-  - {fileID: 7956704028784619309}
-  - {fileID: 7956704028784619309}
+  - {fileID: 2655135351471577915, guid: ac0de6de013c71c4dae2eb30568631a3, type: 3}
+  - {fileID: 2655135351471577915, guid: ac0de6de013c71c4dae2eb30568631a3, type: 3}
 --- !u!64 &7727367428953917265
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -763,7 +763,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

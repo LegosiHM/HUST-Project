@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 4143234736088054656}
   - component: {fileID: 778868167729424602}
   - component: {fileID: 143043051106648568}
-  - component: {fileID: 5236233392504786264}
+  - component: {fileID: 2224507064113962957}
   m_Layer: 7
   m_Name: LemonTree
   m_TagString: Untagged
@@ -552,7 +552,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7956704028784619309}
-  m_Mesh: {fileID: 4300000, guid: df519235b48e1194881086017b2a19e8, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 00a0a68eb3a20a1439945081453e5da3, type: 3}
 --- !u!23 &4143234736088054656
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -590,7 +590,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -645,10 +645,10 @@ MonoBehaviour:
   dropItems:
   - {fileID: 2655135351471577915, guid: 30277986b77125a408f46029b96c5a6e, type: 3}
   - {fileID: 2655135351471577915, guid: 30277986b77125a408f46029b96c5a6e, type: 3}
-  - {fileID: 2655135351471577915, guid: 30277986b77125a408f46029b96c5a6e, type: 3}
   - {fileID: 2655135351471577915, guid: 98e06ef30e78e674d81279574a2e4525, type: 3}
---- !u!64 &5236233392504786264
-MeshCollider:
+  - {fileID: 2655135351471577915, guid: 98e06ef30e78e674d81279574a2e4525, type: 3}
+--- !u!65 &2224507064113962957
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -665,10 +665,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: df519235b48e1194881086017b2a19e8, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 1.7273314, y: 2.7569432, z: 1.7667528}
+  m_Center: {x: 0, y: 1.1723695, z: 0}
 --- !u!1 &8477105019736532425
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,8 +721,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.83312, y: 3.786381, z: 1}
-  m_Center: {x: 0.050901774, y: 1.3931909, z: 3.4595012e-16}
+  m_Size: {x: 0.6729532, y: 3.3895614, z: 1.0731969}
+  m_Center: {x: 0.06794798, y: 1.1947954, z: 0.24452874}
 --- !u!114 &6057232158674369977
 MonoBehaviour:
   m_ObjectHideFlags: 0

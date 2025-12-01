@@ -517,9 +517,9 @@ GameObject:
   - component: {fileID: 1594920379041165274}
   - component: {fileID: 6646271738357516611}
   - component: {fileID: 4143234736088054656}
-  - component: {fileID: 589949032060783916}
   - component: {fileID: 778868167729424602}
   - component: {fileID: 143043051106648568}
+  - component: {fileID: 3575458582096276353}
   m_Layer: 7
   m_Name: WoodenBox
   m_TagString: Untagged
@@ -601,28 +601,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &589949032060783916
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7956704028784619309}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 5904af79b89599f4e892f87bd807c1dd, type: 3}
 --- !u!54 &778868167729424602
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -664,7 +642,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   maxHP: 3
   deathEffect: {fileID: 4131806107084036167, guid: 66f45a15be8d289438b38690f7b6e087, type: 3}
-  dropItems: []
+  dropItems:
+  - {fileID: 2655135351471577915, guid: 30277986b77125a408f46029b96c5a6e, type: 3}
+  - {fileID: 2655135351471577915, guid: 30277986b77125a408f46029b96c5a6e, type: 3}
+  - {fileID: 2655135351471577915, guid: 30277986b77125a408f46029b96c5a6e, type: 3}
+  - {fileID: 2655135351471577915, guid: 98e06ef30e78e674d81279574a2e4525, type: 3}
+--- !u!64 &3575458582096276353
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7956704028784619309}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 85316e6a5a2a2c047a384df19b383824, type: 3}
 --- !u!1 &8477105019736532425
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,8 +722,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.1286213, y: 1.330736, z: 1}
-  m_Center: {x: -0.04457472, y: 0.16536821, z: -4.1333201e-16}
+  m_Size: {x: 0.8732684, y: 1.7274901, z: 1}
+  m_Center: {x: 0.008442729, y: 0.36374572, z: 1.3209761e-16}
 --- !u!114 &6057232158674369977
 MonoBehaviour:
   m_ObjectHideFlags: 0
